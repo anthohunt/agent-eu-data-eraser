@@ -1,0 +1,8 @@
+# Données personnelles : jamais dans le dépôt
+donnees/
+identite*.json
+journal*
+*.log
+.env
+__pycache__/
+.venv

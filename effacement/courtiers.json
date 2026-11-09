@@ -1,0 +1,490 @@
+[
+ {
+  "id": "solocal",
+  "nom": "Solocal Group (Solocal Marketing Services, PagesJaunes)",
+  "canal": "mail",
+  "adresse": "dpo@solocal.com",
+  "domaines": [
+   "solocal.com",
+   "pagesjaunes.fr"
+  ],
+  "pays": [
+   "FR"
+  ],
+  "source": "https://www.118712.fr/politique-cookies",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "tagadamedia",
+  "nom": "Tagadamedia",
+  "canal": "mail",
+  "adresse": "dpo@tagadamedia.com",
+  "domaines": [
+   "tagadamedia.com"
+  ],
+  "pays": [
+   "FR"
+  ],
+  "source": "https://www.tagadamedia.com/fr/politique-de-protection-des-donnees-et-cookies/",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "kaspr",
+  "nom": "Kaspr",
+  "canal": "mail",
+  "adresse": "privacy@kaspr.io",
+  "domaines": [
+   "kaspr.io"
+  ],
+  "pays": [
+   "FR"
+  ],
+  "source": "https://www.kaspr.io/privacy-policy",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "acxiom",
+  "nom": "Acxiom (France)",
+  "canal": "aucun",
+  "domaines": [
+   "acxiom.com"
+  ],
+  "objets": [
+   "Acxiom"
+  ],
+  "source": "https://www.acxiom.com/privacy/fr/",
+  "vu_le": "2026-11-09",
+  "note": "aucune adresse mail publiée : portail OneTrust seulement",
+  "pays": [
+   "FR"
+  ]
+ },
+ {
+  "id": "liveramp",
+  "nom": "LiveRamp",
+  "canal": "mail",
+  "domaines": [
+   "liveramp.com",
+   "liveramp.fr"
+  ],
+  "adresse": "cil@liveramp.com",
+  "source": "https://liveramp.com/privacy/",
+  "vu_le": "2026-11-09",
+  "pays": [
+   "FR"
+  ]
+ },
+ {
+  "id": "epsilon",
+  "nom": "Epsilon",
+  "canal": "mail",
+  "domaines": [
+   "epsilon.com",
+   "publicisgroupe.com"
+  ],
+  "expediteurs": [
+   "Epsilon"
+  ],
+  "adresse": "privacy@epsilon.com",
+  "source": "https://www.epsilon.com/privacy",
+  "vu_le": "2026-11-09",
+  "pays": [
+   "US"
+  ]
+ },
+ {
+  "id": "infobel",
+  "nom": "Infobel",
+  "canal": "mail",
+  "domaines": [
+   "infobel.com",
+   "infobelpro.com"
+  ],
+  "adresse": "dpo@infobel.com",
+  "source": "https://www.infobelpro.com/infobel-privacy-data-protection-overview",
+  "vu_le": "2026-11-09",
+  "pays": [
+   "BE"
+  ]
+ },
+ {
+  "id": "zoominfo",
+  "nom": "ZoomInfo",
+  "canal": "mail",
+  "domaines": [
+   "zoominfo.com"
+  ],
+  "adresse": "privacy@zoominfo.com",
+  "source": "https://www.zoominfo.com/about-zoominfo/privacy-policy",
+  "vu_le": "2026-11-09",
+  "pays": [
+   "US"
+  ]
+ },
+ {
+  "id": "lusha",
+  "nom": "Lusha",
+  "canal": "mail",
+  "domaines": [
+   "lusha.com"
+  ],
+  "adresse": "privacy@lusha.com",
+  "source": "https://www.lusha.com/legal/privacy_policy/",
+  "vu_le": "2026-11-09",
+  "pays": [
+   "US"
+  ]
+ },
+ {
+  "id": "apollo",
+  "nom": "Apollo.io",
+  "canal": "mail",
+  "domaines": [
+   "apollo.io"
+  ],
+  "adresse": "privacy@apollo.io",
+  "source": "https://www.apollo.io/privacy-policy",
+  "vu_le": "2026-11-09",
+  "pays": [
+   "US"
+  ]
+ },
+ {
+  "id": "rocketreach",
+  "nom": "RocketReach",
+  "canal": "mail",
+  "domaines": [
+   "rocketreach.co"
+  ],
+  "adresse": "privacy@rocketreach.co",
+  "source": "https://rocketreach.co/privacy",
+  "vu_le": "2026-11-09",
+  "pays": [
+   "US"
+  ]
+ },
+ {
+  "id": "cognism",
+  "nom": "Cognism",
+  "canal": "mail",
+  "domaines": [
+   "cognism.com"
+  ],
+  "adresse": "privacy@cognism.com",
+  "source": "https://www.cognism.com/en/privacy-policy",
+  "vu_le": "2026-11-09",
+  "pays": [
+   "GB"
+  ]
+ },
+ {
+  "id": "dealfront",
+  "nom": "Dealfront (Leadfeeder)",
+  "canal": "mail",
+  "domaines": [
+   "leadfeeder.com",
+   "dealfront.com"
+  ],
+  "adresse": "privacy@leadfeeder.com",
+  "source": "https://www.leadfeeder.com/privacy/privacy-notice/",
+  "vu_le": "2026-11-09",
+  "pays": [
+   "DE"
+  ]
+ },
+ {
+  "id": "criteo",
+  "nom": "Criteo",
+  "canal": "mail",
+  "domaines": [
+   "criteo.com"
+  ],
+  "adresse": "dpo@criteo.com",
+  "pays": [
+   "FR"
+  ],
+  "source": "https://www.criteo.com/privacy/your-rights/",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "lemlist",
+  "nom": "Lempire (lemlist)",
+  "canal": "mail",
+  "adresse": "privacy@lempire.co",
+  "domaines": [
+   "lemlist.com",
+   "lempire.co"
+  ],
+  "pays": [
+   "FR"
+  ],
+  "source": "https://www.lemlist.com/legal/privacy-policy",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "zeliq",
+  "nom": "Getheroes SAS (Zeliq)",
+  "canal": "mail",
+  "adresse": "privacy@zeliq.com",
+  "domaines": [
+   "zeliq.com"
+  ],
+  "pays": [
+   "FR"
+  ],
+  "source": "https://www.zeliq.com/legal-information/privacy-policy",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "datagma",
+  "nom": "Datagma",
+  "canal": "mail",
+  "adresse": "gdpr@datagma.com",
+  "domaines": [
+   "datagma.com"
+  ],
+  "pays": [
+   "FR"
+  ],
+  "source": "https://datagma.com/en/privacy-policy",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "societeinfo",
+  "nom": "Smart Data (SocieteInfo)",
+  "canal": "mail",
+  "adresse": "dpo@societeinfo.com",
+  "domaines": [
+   "societeinfo.com"
+  ],
+  "pays": [
+   "FR"
+  ],
+  "source": "https://societeinfo.com/privacy",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "northdata",
+  "nom": "North Data GmbH",
+  "canal": "mail",
+  "adresse": "privacy@northdata.com",
+  "domaines": [
+   "northdata.com"
+  ],
+  "pays": [
+   "DE"
+  ],
+  "source": "https://www.northdata.com/_privacy",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "creditreform",
+  "nom": "Verband der Vereine Creditreform e.V.",
+  "canal": "mail",
+  "adresse": "Datenschutz@verband.creditreform.de",
+  "domaines": [
+   "creditreform.de",
+   "creditreform.com"
+  ],
+  "pays": [
+   "DE"
+  ],
+  "source": "https://www.creditreform.de/datenschutz",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "regis24",
+  "nom": "Regis24 GmbH",
+  "canal": "mail",
+  "adresse": "datenschutz@regis24.de",
+  "domaines": [
+   "regis24.de"
+  ],
+  "pays": [
+   "DE"
+  ],
+  "source": "https://www.regis24.de/datenschutz/",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "creditsafe",
+  "nom": "Creditsafe Ireland Limited",
+  "canal": "mail",
+  "adresse": "eudpo@creditsafe.com",
+  "domaines": [
+   "creditsafe.com"
+  ],
+  "pays": [
+   "IE"
+  ],
+  "source": "https://www.creditsafe.com/gb/en/legal/privacy-policy.html",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "informa",
+  "nom": "Informa D&B (eInforma)",
+  "canal": "mail",
+  "adresse": "dpo@informa.es",
+  "domaines": [
+   "informa.es",
+   "einforma.com"
+  ],
+  "pays": [
+   "ES"
+  ],
+  "source": "https://www.informa.es/politica-privacidad",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "leadinfo",
+  "nom": "Leadinfo B.V.",
+  "canal": "mail",
+  "adresse": "privacy@leadinfo.com",
+  "domaines": [
+   "leadinfo.com"
+  ],
+  "pays": [
+   "NL"
+  ],
+  "source": "https://www.leadinfo.com/en/legal/privacy/",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "moodys-bvd",
+  "nom": "Moody's / Bureau van Dijk",
+  "canal": "mail",
+  "adresse": "privacy@moodys.com",
+  "domaines": [
+   "moodys.com",
+   "bvdinfo.com",
+   "bvdep.com"
+  ],
+  "pays": [
+   "US",
+   "FR",
+   "UK",
+   "DE"
+  ],
+  "source": "https://www.moodys.com/web/en/us/legal/privacy-policy.html",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "truecaller",
+  "nom": "True Software Scandinavia AB (Truecaller)",
+  "canal": "mail",
+  "adresse": "dpo.eu@truecaller.com",
+  "domaines": [
+   "truecaller.com"
+  ],
+  "pays": [
+   "SE"
+  ],
+  "source": "https://www.truecaller.com/privacy-policy-eu",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "hunter",
+  "nom": "Hunter Web Services, Inc. (Hunter)",
+  "canal": "mail",
+  "adresse": "privacy@hunter.io",
+  "domaines": [
+   "hunter.io"
+  ],
+  "pays": [
+   "US",
+   "FR"
+  ],
+  "source": "https://hunter.io/privacy-policy",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "snovio",
+  "nom": "Snovio Inc. (Snov.io)",
+  "canal": "mail",
+  "adresse": "snovio_dpo@snov.io",
+  "domaines": [
+   "snov.io"
+  ],
+  "pays": [
+   "US",
+   "UA"
+  ],
+  "source": "https://snov.io/privacy-policy",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "wiza",
+  "nom": "Wiza, Inc.",
+  "canal": "mail",
+  "adresse": "optout@wiza.com",
+  "domaines": [
+   "wiza.com",
+   "wiza.co"
+  ],
+  "pays": [
+   "US",
+   "CA"
+  ],
+  "source": "https://wiza.co/privacy",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "seamlessai",
+  "nom": "Seamless Contacts, Inc. (Seamless.AI)",
+  "canal": "mail",
+  "adresse": "privacy@seamlessleads.com",
+  "domaines": [
+   "seamless.ai",
+   "seamlessleads.com"
+  ],
+  "pays": [
+   "US"
+  ],
+  "source": "https://seamless.ai/policies/privacy-policy",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "peopledatalabs",
+  "nom": "People Data Labs, Inc.",
+  "canal": "mail",
+  "adresse": "dpo@peopledatalabs.com",
+  "domaines": [
+   "peopledatalabs.com"
+  ],
+  "pays": [
+   "US"
+  ],
+  "source": "https://privacy.peopledatalabs.com/policies?name=privacy-policy",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "clearbit",
+  "nom": "HubSpot, Inc. (Clearbit / Breeze Intelligence)",
+  "canal": "mail",
+  "adresse": "privacy@hubspot.com",
+  "domaines": [
+   "clearbit.com",
+   "hubspot.com"
+  ],
+  "pays": [
+   "US",
+   "IE"
+  ],
+  "source": "https://clearbit.com/privacy-policy",
+  "vu_le": "2026-11-09"
+ },
+ {
+  "id": "datahq",
+  "nom": "Data HQ Ltd",
+  "canal": "mail",
+  "adresse": "info@datahq.co.uk",
+  "domaines": [
+   "datahq.co.uk"
+  ],
+  "pays": [
+   "UK"
+  ],
+  "source": "https://datahq.co.uk/legal/privacy-policy",
+  "vu_le": "2026-11-09"
+ }
+]
