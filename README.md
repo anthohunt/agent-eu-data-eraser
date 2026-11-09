@@ -1,6 +1,6 @@
-# Effacement de données
+# Agent - Effaceur de données
 
-Un agent qui tourne sur ta machine et demande, à ta place et en ton nom, aux courtiers en données d'effacer tes données personnelles (droit à l'effacement, article 17 du RGPD). Il fait le travail d'un service comme Incogni, en clair : chaque demande, chaque réponse et chaque relance restent chez toi.
+Un agent permanent qui tourne sur ta machine et demande, à ta place et en ton nom, aux courtiers en données d'effacer tes données personnelles (droit à l'effacement, article 17 du RGPD). Il fait le travail d'un service comme Incogni, en clair : chaque demande, chaque réponse et chaque relance restent chez toi.
 
 ![Schéma : l'agent d'effacement écrit depuis ta boîte au délégué de chaque courtier ; l'agent de recherche propose de nouveaux courtiers à la liste commune](docs/images/schema.svg)
 
@@ -23,7 +23,7 @@ Le RGPD n'impose aucune forme à une demande. Un courtier peut proposer un formu
 Le plus simple : cloner le dépôt, copier `skill/effacement-donnees/` dans `~/.claude/skills/`, puis dire à Claude Code « installe l'agent d'effacement ». Il conduit l'installation une question à la fois. À la main :
 
 ```sh
-git clone https://github.com/anthohunt/effacement-donnees ~/effacement-donnees && cd ~/effacement-donnees
+git clone https://github.com/anthohunt/agent-effaceur-de-donnees ~/agent-effaceur-de-donnees && cd ~/agent-effaceur-de-donnees
 python3 -m venv .venv && .venv/bin/pip install pillow playwright && .venv/bin/playwright install chromium
 echo '{"nom": "…", "mails": ["…"], "telephones": ["…"], "adresses": ["…"], "expediteur": "…", "destinataire_point": "…"}' | python3 installer.py identite
 echo '<mot de passe d application>' | python3 installer.py boite yahoo <adresse>   # ou gmail, ou "imap.x:smtp.x"
