@@ -103,7 +103,8 @@ def journal():
 
 # ---------- le modèle validé ----------
 
-import textes as T
+sys.path.insert(0, str(ICI))   # lancé avec python -I : le dossier du script n'est pas dans le chemin
+import textes as T  # noqa: E402
 
 
 def OBJ(ident):
