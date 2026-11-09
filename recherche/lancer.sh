@@ -21,14 +21,28 @@ cp "$P" "$T/docs/courtiers-proposes.json"
 [ -f "$ICI/donnees/courtiers-ajoutes.json" ] && cp "$ICI/donnees/courtiers-ajoutes.json" "$T/effacement/courtiers-ajoutes.json"
 ( cd "$T" && claude -p --allowedTools "WebSearch" "WebFetch" "Read(/**)" "Edit(/docs/courtiers-proposes.json)" --disallowedTools "Bash" \
     < consigne.md ) >> "$ICI/donnees/recherche.log" 2>&1
+cp "$T/docs/courtiers-proposes.json" "$ICI/donnees/recherche-derniere-sortie.json" 2>/dev/null
 python3 - "$T/docs/courtiers-proposes.json" "$P" <<'PY' >> "$ICI/donnees/recherche.log" 2>&1 || exit 1
 import json, re, sys
 d = json.load(open(sys.argv[1], encoding="utf-8"))
-assert isinstance(d.get("a_valider"), list) and isinstance(d.get("corrections"), list)
-for x in d["a_valider"]:
-    assert re.fullmatch(r"[^@\s]+@[a-z0-9.-]+\.[a-z]{2,}", x["adresse"].lower()) and x["source"].startswith("https://")
-    dom = x["adresse"].rsplit("@", 1)[1].lower()
-    assert any(dom == k or dom.endswith("." + k) for k in x["domaines"]), x["id"]
-json.dump(d, open(sys.argv[2], "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-print(f"propositions : {len(d['a_valider'])}, corrections : {len(d['corrections'])}")
+garde = {"a_valider": [], "corrections": []}
+def domaine_ok(adresse, domaines):
+    dom = adresse.rsplit("@", 1)[-1].lower()
+    return any(dom == k.lower() or dom.endswith("." + k.lower()) for k in domaines)
+for x in d.get("a_valider", []):  # chaque proposition est contrôlée seule : une mauvaise ne fait pas tomber les autres
+    a = str(x.get("adresse", "")).strip()
+    raison = ("adresse invalide" if not re.fullmatch(r"[^@\s,;]+@[a-z0-9.-]+\.[a-z]{2,}", a.lower()) else
+              "source non https" if not str(x.get("source", "")).startswith("https://") else
+              "adresse hors des domaines du courtier" if not domaine_ok(a, x.get("domaines", [])) else None)
+    if raison:
+        print(f"écartée : {x.get('id')} ({raison})")
+    else:
+        garde["a_valider"].append({**x, "adresse": a})
+for x in d.get("corrections", []):
+    if re.fullmatch(r"[^@\s,;]+@[a-z0-9.-]+\.[a-z]{2,}", str(x.get("nouvelle", "")).lower()) and str(x.get("source", "")).startswith("https://"):
+        garde["corrections"].append(x)
+    else:
+        print(f"correction écartée : {x.get('id')}")
+json.dump(garde, open(sys.argv[2], "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+print(f"propositions : {len(garde['a_valider'])}, corrections : {len(garde['corrections'])}")
 PY
