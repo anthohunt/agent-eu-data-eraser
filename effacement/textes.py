@@ -171,3 +171,14 @@ POINT = {
            "corrections": "Changed addresses:", "valider": "Reply \"YES\" (or « OUI ») to this email to approve them all; without a reply, nothing changes.",
            "plaintes": "Complaints ready, attached: file them at {url} (paste text 00, attach the other files; some authorities require their national language).",
            "jamais": "never"}}
+
+# Broker states as shown in the English report (the journal keeps the French names).
+ETATS_EN = {"à envoyer": "to send", "envoyé": "sent", "relancé": "followed up", "effacement confirmé": "erasure confirmed",
+            "aucune donnée détenue": "no data held", "vérification à faire": "verification needed",
+            "pièce demandée": "ID requested", "pièce d'identité envoyée": "ID sent", "renvoie vers son formulaire": "points to its form",
+            "accusé de réception": "acknowledged", "refus": "refused", "réponse à lire": "reply to read",
+            "réclamation CNIL prête": "complaint ready"}
+
+
+def etat(ident, e):
+    return ETATS_EN.get(e, e) if langue(ident) == "en" else e

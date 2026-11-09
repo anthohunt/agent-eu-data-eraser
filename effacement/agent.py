@@ -579,10 +579,10 @@ def cmd_point(essai):
     corps = [P["score"].format(ok=reussis, total=total), ""]
     if a_toi:
         corps.append(P["a_toi"])
-        corps += [f"• {nom} : {etat}" for etat, nom, _ in a_toi]
+        corps += [f"• {nom} : {T.etat(ident, etat)}" for etat, nom, _ in a_toi]
         corps.append("")
     corps.append(P["etat"])
-    corps += [f"• {nom} : {etat} ({P['dernier']} : {d if d != 'jamais' else P['jamais']})" for etat, nom, d in sorted(lignes)]
+    corps += [f"• {nom} : {T.etat(ident, etat)} ({P['dernier']} : {d if d != 'jamais' else P['jamais']})" for etat, nom, d in sorted(lignes)]
     texte_point = "\n".join(corps) + "\n"
     objet = P["objet"].format(date=f"{date.today():%d/%m}", ok=reussis, total=total)
     a_valider, corrections = propositions()
