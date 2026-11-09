@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="Helvetica, Arial, sans-serif">
+  <title>Diagram: the two agents, the mailbox, the brokers</title>
+  <defs>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5d6b82"/></marker>
+    <marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f4fd1"/></marker>
+  </defs>
+  <rect width="880" height="560" fill="#ffffff"/>
+  <!-- zones -->
+  <g font-size="11" font-weight="700" fill="#5d6b82" letter-spacing="1">
+    <rect x="20" y="20" width="250" height="110" rx="12" fill="#eef1f5" stroke="#c9d1dd" stroke-dasharray="4 4"/><text x="34" y="40">YOU</text>
+    <rect x="300" y="20" width="560" height="110" rx="12" fill="#eef1f5" stroke="#c9d1dd" stroke-dasharray="4 4"/><text x="314" y="40">SHARED LIST · PUBLIC REPOSITORY</text>
+    <rect x="20" y="170" width="560" height="120" rx="12" fill="#eef1f5" stroke="#c9d1dd" stroke-dasharray="4 4"/><text x="34" y="190">YOUR MACHINE · TWO PERMANENT AGENTS</text>
+    <rect x="300" y="330" width="280" height="100" rx="12" fill="#eef1f5" stroke="#c9d1dd" stroke-dasharray="4 4"/><text x="314" y="350">YOUR MAILBOX</text>
+    <rect x="620" y="420" width="240" height="120" rx="12" fill="#eef1f5" stroke="#c9d1dd" stroke-dasharray="4 4"/><text x="634" y="440">DATA BROKERS</text>
+    <rect x="20" y="420" width="240" height="120" rx="12" fill="#eef1f5" stroke="#c9d1dd" stroke-dasharray="4 4"/><text x="34" y="440">AUTHORITY</text>
+  </g>
+  <!-- composants -->
+  <g font-size="14" fill="#14213d">
+    <g><rect x="34" y="52" width="222" height="62" rx="9" fill="#fff" stroke="#c9d1dd" stroke-width="1.5"/><text x="48" y="78" font-weight="700">You</text><text x="48" y="99" font-size="12" fill="#5d6b82">approve, read the Monday report</text></g>
+    <g><rect x="314" y="52" width="250" height="62" rx="9" fill="#fff" stroke="#c9d1dd" stroke-width="1.5"/><text x="328" y="78" font-weight="700">Broker list</text><text x="328" y="99" font-size="12" fill="#5d6b82">published address + source page</text></g>
+    <g><rect x="596" y="52" width="250" height="62" rx="9" fill="#fff" stroke="#c9d1dd" stroke-width="1.5"/><text x="610" y="78" font-weight="700">Contributors</text><text x="610" y="99" font-size="12" fill="#5d6b82">propose; a maintainer accepts</text></g>
+    <g><rect x="34" y="204" width="160" height="72" rx="9" fill="#fff" stroke="#c9d1dd" stroke-width="1.5"/><text x="48" y="230" font-weight="700">Private data</text><text x="48" y="250" font-size="12" fill="#5d6b82">identity, log,</text><text x="48" y="265" font-size="12" fill="#5d6b82">copies — never in git</text></g>
+    <g><rect x="212" y="204" width="170" height="72" rx="9" fill="#fff" stroke="#1f4fd1" stroke-width="2.2"/><text x="226" y="230" font-weight="700">Eraser agent</text><text x="226" y="250" font-size="12" fill="#5d6b82">fixed program, no AI</text><text x="226" y="265" font-size="12" fill="#5d6b82">sends, tracks, follows up</text></g>
+    <g><rect x="400" y="204" width="166" height="72" rx="9" fill="#fff" stroke="#c9d1dd" stroke-width="1.5"/><text x="414" y="230" font-weight="700">Research agent</text><text x="414" y="250" font-size="12" fill="#5d6b82">Claude, every Monday</text><text x="414" y="265" font-size="12" fill="#5d6b82">proposes, sends nothing</text></g>
+    <g><rect x="314" y="362" width="252" height="56" rx="9" fill="#fff" stroke="#c9d1dd" stroke-width="1.5"/><text x="328" y="386" font-weight="700">Your own address</text><text x="328" y="405" font-size="12" fill="#5d6b82">dedicated app password</text></g>
+    <g><rect x="634" y="452" width="212" height="72" rx="9" fill="#fff" stroke="#c9d1dd" stroke-width="1.5"/><text x="648" y="478" font-weight="700">Data protection officers</text><text x="648" y="498" font-size="12" fill="#5d6b82">one request by email,</text><text x="648" y="513" font-size="12" fill="#5d6b82">reply due within a month</text></g>
+    <g><rect x="34" y="452" width="212" height="72" rx="9" fill="#fff" stroke="#c9d1dd" stroke-width="1.5"/><text x="48" y="478" font-weight="700">CNIL</text><text x="48" y="498" font-size="12" fill="#5d6b82">complaint prepared by the agent,</text><text x="48" y="513" font-size="12" fill="#5d6b82">filed by you</text></g>
+  </g>
+  <!-- flux -->
+  <g fill="none" stroke-width="1.8">
+    <path d="M439 114 L320 200" stroke="#5d6b82" marker-end="url(#f)"/>
+    <path d="M596 83 L568 83" stroke="#5d6b82" marker-end="url(#f)"/>
+    <path d="M483 204 L460 118" stroke="#5d6b82" marker-end="url(#f)"/>
+    <path d="M212 240 L198 240" stroke="#5d6b82" marker-end="url(#f)"/>
+    <path d="M260 204 L180 118" stroke="#1f4fd1" marker-end="url(#fa)"/>
+    <path d="M330 276 L400 358" stroke="#1f4fd1" marker-end="url(#fa)"/>
+    <path d="M500 418 L500 488 L630 488" stroke="#1f4fd1" marker-end="url(#fa)"/>
+    <path d="M740 452 L740 390 L570 390" stroke="#5d6b82" marker-end="url(#f)"/>
+    <path d="M34 100 L10 100 L10 488 L30 488" stroke="#5d6b82" marker-end="url(#f)"/>
+  </g>
+  <g font-size="12" fill="#14213d">
+    <rect x="296" y="138" width="92" height="18" rx="4" fill="#fff"/><text x="306" y="151">approved list</text>
+    <rect x="474" y="150" width="66" height="18" rx="4" fill="#fff"/><text x="480" y="163">proposes</text>
+    <rect x="146" y="150" width="104" height="18" rx="4" fill="#1f4fd1"/><text x="156" y="163" fill="#fff">Monday report</text>
+    <rect x="236" y="306" width="96" height="18" rx="4" fill="#1f4fd1"/><text x="242" y="319" fill="#fff">sends, reads</text>
+    <rect x="510" y="462" width="110" height="18" rx="4" fill="#1f4fd1"/><text x="518" y="475" fill="#fff">request to DPO</text>
+    <rect x="652" y="372" width="66" height="18" rx="4" fill="#fff"/><text x="658" y="385">replies</text>
+    <rect x="14" y="380" width="128" height="18" rx="4" fill="#fff"/><text x="18" y="393">files the complaint</text>
+  </g>
+</svg>

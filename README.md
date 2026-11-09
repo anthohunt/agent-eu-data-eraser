@@ -1,50 +1,55 @@
-# Agent - Effaceur de données
+# Agent - Data Eraser
 
-Un agent permanent qui tourne sur ta machine et demande, à ta place et en ton nom, aux courtiers en données d'effacer tes données personnelles (droit à l'effacement, article 17 du RGPD). Il fait le travail d'un service comme Incogni, en clair : chaque demande, chaque réponse et chaque relance restent chez toi.
+*English · [Français](README.fr.md)*
 
-![Schéma : l'agent d'effacement écrit depuis ta boîte au délégué de chaque courtier ; l'agent de recherche propose de nouveaux courtiers à la liste commune](docs/images/schema.svg)
+A permanent agent that runs on your own machine and asks data brokers, on your behalf and in your name, to erase your personal data (right to erasure, Article 17 GDPR). It does the job of a service like Incogni, in the open: every request, reply and follow-up stays with you.
 
-## Ce qu'il fait
-- **Il écrit au délégué à la protection des données de chaque courtier**, depuis ta propre boîte mail, avec un modèle repris de la CNIL : effacement (article 17), opposition à la prospection (article 21), notification aux destinataires (article 19). Deux demandes le mardi, deux le jeudi.
-- **Il lit les réponses chaque matin** et les classe : effacé, aucune donnée, refus, accusé de réception, pièce demandée. Il suit seul un lien de confirmation authentique, et répond une fois à un courtier qui renvoie vers son formulaire : le mail suffit (voir plus bas).
-- **Il relance un mois après la demande** (délai légal, article 12.3), puis, un mois après la relance, **prépare la plainte à la CNIL** : le texte et les pièces numérotées, que tu déposes. Trois mois après la demande, il la renouvelle.
-- **Il t'envoie un point chaque lundi** : où en est l'objectif, ce qui t'attend, l'état de chaque courtier, et les nouveaux courtiers à valider.
-- **Un agent de recherche** (Claude Code) cherche chaque lundi de nouveaux courtiers et l'adresse que chacun publie. Il ne fait que proposer : une réponse « OUI » au point les ajoute à ta liste.
+![Diagram: the eraser agent writes from your own mailbox to each broker's data protection officer; the research agent proposes new brokers to the shared list](docs/images/schema.en.svg)
 
-![Le cycle d'une demande : jour 0 la demande, chaque matin le relevé, à un mois la relance, à deux mois la plainte préparée, à trois mois une nouvelle demande](docs/images/cycle.svg)
+## What it does
+- **It emails each broker's data protection officer** from your own mailbox, using a template based on the French regulator's (CNIL) model: erasure (Art. 17), objection to direct marketing (Art. 21), notification of recipients (Art. 19). Two requests on Tuesdays, two on Thursdays.
+- **It reads the replies every morning** and sorts them: erased, no data held, refusal, acknowledgement, ID requested. It follows a genuine confirmation link on its own, and answers once to a broker that points to its web form: email is enough (see below).
+- **It follows up one month after the request** (legal deadline, Art. 12(3)) and, one month after the follow-up, **prepares the complaint to the CNIL**: the text and the numbered evidence, which you file. Three months after the request, it renews it.
+- **It sends you a report every Monday**: progress towards the goal, what needs you, the status of each broker, and new brokers to approve.
+- **A research agent** (Claude Code) looks for new brokers every Monday, with the address each one publishes. It only proposes: replying "OUI" (yes) to the Monday report adds them to your list.
 
-## Ce qui reste à toi
-Installer une fois, valider le modèle et la liste, dire « OUI » aux nouvelles adresses, déposer une plainte quand l'agent l'a préparée. Aucun mandat à signer : les demandes partent de ta boîte, tu exerces toi-même ton droit. La machine doit rester allumée.
+![Lifecycle of a request: day 0 the request, every morning the inbox check, one month the follow-up, two months the complaint prepared, three months a renewed request](docs/images/cycle.en.svg)
 
-## Le mail suffit
-Le RGPD n'impose aucune forme à une demande. Un courtier peut proposer un formulaire, mais une demande envoyée à l'adresse qu'il publie pour les droits est en général effective et doit être traitée (Comité européen de la protection des données, [lignes directrices 01/2022](https://www.edpb.europa.eu/system/files/2023-04/edpb_guidelines_202201_data_subject_rights_access_v2_en.pdf), points 52-53 : écrites pour le droit d'accès, elles appliquent l'article 12 du RGPD, commun à tous les droits). Le projet n'écrit donc que par mail et ne passe jamais par un formulaire ni un captcha.
+## What is left to you
+Install once, approve the template and the list, say yes to new addresses, file a complaint when the agent has prepared it. No power of attorney to sign: requests leave from your own mailbox, so you exercise your right yourself. The machine must stay on.
+
+## Email is enough
+The GDPR imposes no form for a request. A broker may offer a web form, but a request sent to the address it publishes for privacy rights is in general effective and must be handled (European Data Protection Board, [Guidelines 01/2022](https://www.edpb.europa.eu/system/files/2023-04/edpb_guidelines_202201_data_subject_rights_access_v2_en.pdf), points 52-53: written for the right of access, they apply GDPR Article 12, common to all rights). So the project only ever writes by email, never through a form or a captcha.
+
+## Scope
+The emails are written in French and cite the French authority (CNIL): the project is built for people living in France. The brokers on the list operate in France and the EU; users elsewhere in the EU can adapt the templates in `effacement/agent.py`.
 
 ## Installation
-Le plus simple : cloner le dépôt, copier `skill/effacement-donnees/` dans `~/.claude/skills/`, puis dire à Claude Code « installe l'agent d'effacement ». Il conduit l'installation une question à la fois. À la main :
+Easiest: clone the repository, copy `skill/effacement-donnees/` into `~/.claude/skills/`, then tell Claude Code "installe l'agent d'effacement". It walks you through the setup one question at a time. By hand:
 
 ```sh
 git clone https://github.com/anthohunt/agent-effaceur-de-donnees ~/agent-effaceur-de-donnees && cd ~/agent-effaceur-de-donnees
 python3 -m venv .venv && .venv/bin/pip install pillow playwright && .venv/bin/playwright install chromium
 echo '{"nom": "…", "mails": ["…"], "telephones": ["…"], "adresses": ["…"], "expediteur": "…", "destinataire_point": "…"}' | python3 installer.py identite
-echo '<mot de passe d application>' | python3 installer.py boite yahoo <adresse>   # ou gmail, ou "imap.x:smtp.x"
-python3 installer.py piece recto.jpg     # facultatif
-python3 installer.py calendrier          # pose les tâches planifiées (cron)
-python3 installer.py essai               # un tour à blanc : rien n'est envoyé
+echo '<app password>' | python3 installer.py boite yahoo <address>   # or gmail, or "imap.x:smtp.x"
+python3 installer.py piece front.jpg     # optional: ID card, for authenticated requests only
+python3 installer.py calendrier          # installs the schedule (cron)
+python3 installer.py essai               # a dry run: nothing is sent
 python3 installer.py etat
 ```
 
-Prérequis : Linux ou macOS (le calendrier utilise cron), Python 3.9 ou plus, une machine allumée en permanence. Pillow sert au filigrane de la pièce d'identité, Playwright à suivre les liens de confirmation : sans eux, ces deux cas te remontent au lieu d'être traités seuls. Claude Code sert à l'agent de recherche.
+Requirements: Linux or macOS (the schedule uses cron), Python 3.9+, a machine that stays on. Pillow watermarks the ID copy and Playwright follows confirmation links: without them, those two cases come back to you instead of being handled. Claude Code runs the research agent.
 
-## Données et sécurité
-Tout ce qui est personnel reste dans `donnees/`, sur ta machine, hors du dépôt. Les risques pris en compte (faux courtier, faux mail qui réclame la pièce d'identité, lien piégé) et leurs parades sont dans [`SECURITY.md`](SECURITY.md).
+## Data and security
+Everything personal stays in `donnees/`, on your machine, outside the repository. The risks considered (fake broker, fake email asking for your ID, booby-trapped link, prompt injection) and how they are handled are in [`SECURITY.md`](SECURITY.md).
 
-## La liste des courtiers
-[`docs/courtiers.md`](docs/courtiers.md) : chaque courtier, l'adresse qu'il publie et la page source. Elle est ouverte aux contributions, acceptées par un mainteneur humain : voir [`CONTRIBUTING.md`](CONTRIBUTING.md).
+## The broker list
+[`docs/courtiers.md`](docs/courtiers.md): each broker, the address it publishes and the source page. Contributions are welcome and accepted by a human maintainer: see [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-## Pour aller plus loin
-- [`docs/recherche.md`](docs/recherche.md) : le cadre légal et les sources.
-- [`docs/modele-demande.md`](docs/modele-demande.md) : tous les mails que l'agent peut envoyer.
-- `effacement/agent.py` : le programme (`python3 agent.py --help`).
+## Further reading (in French)
+- [`docs/recherche.md`](docs/recherche.md): legal framework and sources.
+- [`docs/modele-demande.md`](docs/modele-demande.md): every email the agent can send.
+- `effacement/agent.py`: the program (`python3 agent.py --help`).
 
-## Licence
-MIT, voir [`LICENSE`](LICENSE).
+## License
+MIT, see [`LICENSE`](LICENSE).
