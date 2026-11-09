@@ -6,7 +6,7 @@
                                      lit le mot de passe d'application sur l'entrée standard, écrit donnees/acces.json,
                                      teste la connexion (lecture IMAP et envoi SMTP) sans rien envoyer
   installer.py piece FICHIER         copie la pièce d'identité (image) dans donnees/, pour les demandes authentifiées
-  installer.py calendrier            pose le calendrier (cron) : envois, relevés, relances, point, recherche
+  installer.py calendrier            pose le calendrier (cron, Linux ou macOS) : envois, relevés, relances, point, recherche
   installer.py essai                 fait un tour complet à blanc : 2 demandes et le point, écrits en aperçu
   installer.py etat                  ce qui est installé et ce qui manque
 
@@ -68,15 +68,22 @@ def piece(fichier):
     if f.suffix.lower() not in (".jpg", ".jpeg", ".png"):
         sys.exit("une image JPG ou PNG du recto")
     DONNEES.mkdir(parents=True, exist_ok=True)
+    os.chmod(DONNEES, 0o700)
     for vieux in DONNEES.glob("piece-identite.*"):
         vieux.unlink()
     dest = DONNEES / f"piece-identite{f.suffix.lower()}"
-    shutil.copyfile(f, dest); os.chmod(dest, 0o600)
+    old = os.umask(0o077)
+    try:
+        shutil.copyfile(f, dest)
+    finally:
+        os.umask(old)
+    os.chmod(dest, 0o600)
     print(dest)
 
 
 def calendrier():
-    l = str(ICI / "lancer.sh"); r = str(ICI / "recherche" / "lancer.sh")
+    import shlex
+    l = shlex.quote(str(ICI / "lancer.sh")); r = shlex.quote(str(ICI / "recherche" / "lancer.sh"))
     bloc = [MARQUE,
             f"0 9 * * * {l} relever; {l} relancer",
             f"0 10 * * 2,4 {l} envoyer --n 2",
@@ -86,10 +93,11 @@ def calendrier():
             MARQUE + " fin"]
     actuel = subprocess.run(["crontab", "-l"], capture_output=True, text=True).stdout.splitlines()
     garde, dedans = [], False
-    for x in actuel:  # remplace l'ancien bloc, et toute ligne qui appelle déjà ce dépôt
+    anciens = (str(ICI / "lancer.sh"), str(ICI / "recherche" / "lancer.sh"))
+    for x in actuel:  # remplace le bloc posé par ce script, et les lignes qui lancent déjà ces deux scripts ; rien d'autre
         if x == MARQUE: dedans = True; continue
         if x == MARQUE + " fin": dedans = False; continue
-        if dedans or str(ICI) in x or "effacement-donnees/" in x or (x.startswith("#") and "effacement" in x.lower()):
+        if dedans or any(a in x for a in anciens):
             continue
         garde.append(x)
     subprocess.run(["crontab", "-"], input="\n".join(garde + bloc) + "\n", text=True, check=True)

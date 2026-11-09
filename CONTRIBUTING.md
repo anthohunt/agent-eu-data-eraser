@@ -17,7 +17,7 @@ Modifier `effacement/courtiers.json` (une entrée par courtier), régénérer la
 ## Règles
 - Seulement des adresses publiées par le courtier lui-même.
 - Aucune donnée personnelle dans une contribution (ni nom, ni adresse, ni capture de demande).
-- Un courtier fermé ou injoignable : le signaler dans `docs/courtiers.md` avec la preuve, plutôt que le supprimer.
+- Un courtier fermé ou sans adresse : dans `effacement/courtiers.json`, passer `canal` à `aucun` et expliquer dans `note`, avec la preuve en `source`, plutôt que le supprimer ; puis régénérer la liste.
 
 ## Validation
 Un mainteneur humain accepte chaque ajout après avoir vérifié que l'adresse figure bien sur la page source, sur le domaine du courtier. Pas de vote automatique : un faux courtier accepté en masse recevrait les données de tous les utilisateurs (voir `SECURITY.md`).

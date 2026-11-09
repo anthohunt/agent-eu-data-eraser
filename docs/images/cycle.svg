@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 210" width="880" height="210" font-family="Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 210" width="900" height="210" font-family="Helvetica, Arial, sans-serif">
   <title>Le cycle d'une demande : envoi, réponse, relance, plainte, renouvellement</title>
-  <rect width="880" height="210" fill="#ffffff"/>
+  <rect width="900" height="210" fill="#ffffff"/>
   <line x1="60" y1="80" x2="830" y2="80" stroke="#c9d1dd" stroke-width="4"/>
   <g font-size="13" fill="#14213d" text-anchor="middle">
     <circle cx="80" cy="80" r="11" fill="#1f4fd1"/><text x="80" y="50" font-weight="700">Jour 0</text><text x="80" y="112">demande par mail</text><text x="80" y="129" font-size="12" fill="#5d6b82">au délégué (art. 17)</text>
     <circle cx="260" cy="80" r="11" fill="#1f7a4f"/><text x="260" y="50" font-weight="700">Chaque matin</text><text x="260" y="112">réponse lue et classée</text><text x="260" y="129" font-size="12" fill="#5d6b82">effacé, aucune donnée, refus…</text>
     <circle cx="450" cy="80" r="11" fill="#a86410"/><text x="450" y="50" font-weight="700">1 mois</text><text x="450" y="112">relance automatique</text><text x="450" y="129" font-size="12" fill="#5d6b82">délai légal (art. 12.3)</text>
     <circle cx="630" cy="80" r="11" fill="#b3261e"/><text x="630" y="50" font-weight="700">2 mois</text><text x="630" y="112">plainte CNIL préparée</text><text x="630" y="129" font-size="12" fill="#5d6b82">texte + pièces, tu la déposes</text>
-    <circle cx="800" cy="80" r="11" fill="#5d6b82"/><text x="800" y="50" font-weight="700">3 mois</text><text x="800" y="112">nouvelle demande</text><text x="800" y="129" font-size="12" fill="#5d6b82">les fichiers se reremplissent</text>
+    <circle cx="790" cy="80" r="11" fill="#5d6b82"/><text x="790" y="50" font-weight="700">3 mois</text><text x="790" y="112">nouvelle demande</text><text x="790" y="129" font-size="12" fill="#5d6b82">la demande renouvelée</text>
   </g>
   <text x="440" y="185" font-size="13" fill="#5d6b82" text-anchor="middle">Chaque lundi : un point par mail (objectif, ce qui t'attend, état de chaque courtier) et les nouveaux courtiers à valider.</text>
 </svg>

@@ -19,7 +19,7 @@ Je vous prie de m'informer de ces éléments dans les meilleurs délais et au pl
 
 Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.
 
-{prenom} {nom}
+{nom}
 
 ## 2. Le courtier renvoie vers son formulaire
 Le projet n'utilise que le mail. Réponse envoyée une fois :

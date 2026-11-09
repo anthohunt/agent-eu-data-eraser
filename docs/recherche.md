@@ -8,7 +8,7 @@
 - **Accès** (article 15) : oblige l'organisme à dire d'où viennent les données quand elles n'ont pas été collectées auprès de la personne. Sert à remonter au fournisseur d'un fichier.
 
 ## Ce que recommande la CNIL
-- Un modèle officiel « Supprimer des données personnelles » (citer l'article 17.1, lister les données, demander la notification article 19, exiger une réponse sous un mois, annoncer la réclamation CNIL à défaut). Repris tel quel dans `modele-demande.md`.
+- Un modèle officiel « Supprimer des données personnelles » (citer l'article 17.1, lister les données, demander la notification article 19, exiger une réponse sous un mois, annoncer la réclamation CNIL à défaut). Repris dans `modele-demande.md` et complété (retrait du consentement, article 17.1.b ; opposition à la prospection, articles 21.2 et 17.1.c).
 - Écrire au délégué à la protection des données (DPO) indiqué dans la politique de confidentialité ; le courriel suffit, le recommandé n'est utile qu'en cas de litige.
 - Le droit à l'effacement représente 37 % des plaintes reçues par la CNIL en 2024 ; la CNIL et ses homologues européens ont mené en 2025 une série de contrôles coordonnés sur ce droit.
 - Courtiers sanctionnés récemment : Solocal Marketing Services (900 000 €, 15/05/2025), Caloga (80 000 €, 15/05/2025), Tagadamedia (75 000 €, décembre 2023, confirmé par le Conseil d'État le 20/05/2026). Leurs données viennent surtout de jeux-concours et de tests de produits.
@@ -21,7 +21,6 @@
 ## Le mail suffit
 - Le RGPD n'impose aucune forme à une demande ; un organisme peut proposer un formulaire, mais une demande faite par un autre canal qu'il fournit (comme l'adresse vie privée publiée dans sa politique) est en général effective et doit être traitée (CEPD, lignes directrices 01/2022, points 52-53). Il ne peut ignorer qu'une adresse prise au hasard ou manifestement sans rapport (point 54).
 - Le projet n'écrit donc que par mail, à l'adresse que chaque courtier publie, et répond une fois, avec ces références, à un courtier qui renvoie vers son formulaire.
-- Les formulaires ont été essayés puis abandonnés : beaucoup sont protégés par un captcha, que le projet ne contourne jamais.
 
 ## Plainte à la CNIL
 - La démarche préalable auprès de l'organisme est exigée : sans elle, une plainte peut être classée.

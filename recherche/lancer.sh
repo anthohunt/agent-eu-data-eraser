@@ -13,8 +13,8 @@ trap 'rm -rf "$T"' EXIT
 mkdir -p "$T/effacement" "$T/docs" && cp "$ICI/README.md" "$ICI/CONTRIBUTING.md" "$T/" \
   && cp "$ICI/effacement/courtiers.json" "$T/effacement/" && cp "$ICI/docs/courtiers-proposes.json" "$T/docs/" \
   && cp "$ICI/recherche/consigne.md" "$T/consigne.md" || exit 1
-( cd "$T" && claude -p --allowedTools "WebSearch" "WebFetch" "Read(/**)" "Edit(/docs/courtiers-proposes.json)" \
-    "Write(/docs/courtiers-proposes.json)" --disallowedTools "Bash" < consigne.md ) >> "$ICI/donnees/recherche.log" 2>&1
+( cd "$T" && claude -p --allowedTools "WebSearch" "WebFetch" "Read(/**)" "Edit(/docs/courtiers-proposes.json)" --disallowedTools "Bash" \
+    < consigne.md ) >> "$ICI/donnees/recherche.log" 2>&1
 python3 - "$T/docs/courtiers-proposes.json" "$ICI/docs/courtiers-proposes.json" <<'PY' >> "$ICI/donnees/recherche.log" 2>&1 || exit 1
 import json, re, sys
 d = json.load(open(sys.argv[1], encoding="utf-8"))
