@@ -91,7 +91,13 @@ def sauver_journal(j):
 
 
 def courtiers():
-    return json.loads((ICI / "courtiers.json").read_text(encoding="utf-8"))
+    """La liste commune (dépôt), plus les courtiers que l'utilisateur a validés pour lui (donnees/, hors dépôt)."""
+    liste = json.loads((ICI / "courtiers.json").read_text(encoding="utf-8"))
+    ajouts = charger("courtiers-ajoutes.json", [])
+    par_id = {c["id"]: c for c in liste}
+    for c in ajouts:
+        par_id[c["id"]] = {**par_id.get(c["id"], {}), **c}
+    return list(par_id.values())
 
 
 def journal():
@@ -435,7 +441,7 @@ def envoyer_piece(c, e, msg, ident, essai):
 
 # ---------- validation des nouveaux courtiers (réponse « OUI » au point) ----------
 
-PROPOSES = ICI.parent / "docs" / "courtiers-proposes.json"
+PROPOSES = DONNEES / "courtiers-proposes.json"   # propositions de l'agent de recherche, propres à l'utilisateur
 
 
 def propositions():
@@ -467,29 +473,24 @@ def chercher_validation(M, ident, essai):
         if not re.match(r"\s*(oui|yes)\b", texte(msg), re.I):
             continue
         a_valider, corrections = propositions()
-        liste = courtiers()
-        connus = {c["id"] for c in liste}
-        ajout = [x for x in a_valider if x["id"] in v["ids"] and x["id"] not in connus]
-        for x in ajout:
-            liste.append({k: x[k] for k in ("id", "nom", "canal", "adresse", "domaines", "pays", "source", "vu_le") if k in x})
+        connus = {c["id"] for c in courtiers()}
+        ajout = [{k: x[k] for k in ("id", "nom", "canal", "adresse", "domaines", "pays", "source", "vu_le") if k in x}
+                 for x in a_valider if x["id"] in v["ids"] and x["id"] not in connus]
         corr = {x["id"]: x for x in corrections if x["id"] in v.get("corrections", [])}
-        for c in liste:
-            if c["id"] in corr:
-                c["adresse"], c["source"], c["vu_le"] = corr[c["id"]]["nouvelle"], corr[c["id"]]["source"], corr[c["id"]]["vu_le"]
+        ajout += [{"id": i, "adresse": x["nouvelle"], "source": x["source"], "vu_le": x["vu_le"]} for i, x in corr.items()]
         if essai:
-            log(f"ESSAI : {len(ajout)} courtier(s) et {len(corr)} correction(s) seraient validés")
+            log(f"ESSAI : {len(ajout) - len(corr)} courtier(s) et {len(corr)} correction(s) seraient validés")
             return
-        (ICI / "courtiers.json").write_text(json.dumps(liste, ensure_ascii=False, indent=1), encoding="utf-8")
+        anciens = charger("courtiers-ajoutes.json", [])
+        ids = {x["id"] for x in ajout}
+        (DONNEES / "courtiers-ajoutes.json").write_text(json.dumps([x for x in anciens if x["id"] not in ids] + ajout,
+                                                                  ensure_ascii=False, indent=1), encoding="utf-8")
         d2 = json.loads(PROPOSES.read_text(encoding="utf-8"))
         d2["a_valider"] = [x for x in d2.get("a_valider", []) if x["id"] not in v["ids"]]
         d2["corrections"] = [x for x in d2.get("corrections", []) if x["id"] not in corr]
         PROPOSES.write_text(json.dumps(d2, ensure_ascii=False, indent=1), encoding="utf-8")
         (DONNEES / "validation.json").write_text("{}")
-        import subprocess
-        subprocess.run(["git", "-C", str(ICI.parent), "commit", "-q", "-m",
-                        f"Valide {len(ajout)} courtier(s) et {len(corr)} correction(s) proposés par l'agent de recherche",
-                        "--", "effacement/courtiers.json", "docs/courtiers-proposes.json"], check=False)
-        log(f"validation reçue : {len(ajout)} courtier(s) ajouté(s), {len(corr)} adresse(s) corrigée(s)")
+        log(f"validation reçue : {len(ajout) - len(corr)} courtier(s) ajouté(s), {len(corr)} adresse(s) corrigée(s)")
         return
 
 
