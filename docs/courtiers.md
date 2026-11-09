@@ -2,7 +2,7 @@
 
 Générée depuis `effacement/courtiers.json` par `outils/liste.py` ; ne pas modifier à la main.
 
-**32 courtiers joignables par mail.** Chaque adresse est celle que le courtier publie lui-même pour les demandes RGPD ; la page source et sa date de lecture sont indiquées.
+**31 courtiers joignables par mail.** Chaque adresse est celle que le courtier publie lui-même pour les demandes RGPD ; la page source et sa date de lecture sont indiquées.
 
 | Courtier | Pays | Adresse | Source | Vu le |
 |---|---|---|---|---|
@@ -13,7 +13,6 @@ Générée depuis `effacement/courtiers.json` par `outils/liste.py` ; ne pas mod
 | Data HQ Ltd | UK | `info@datahq.co.uk` | [page](https://datahq.co.uk/legal/privacy-policy) | 2026-11-09 |
 | Datagma | FR | `gdpr@datagma.com` | [page](https://datagma.com/en/privacy-policy) | 2026-11-09 |
 | Dealfront (Leadfeeder) | DE | `privacy@leadfeeder.com` | [page](https://www.leadfeeder.com/privacy/privacy-notice/) | 2026-11-09 |
-| Epsilon | US | `privacy@epsilon.com` | [page](https://www.epsilon.com/privacy) | 2026-11-09 |
 | Getheroes SAS (Zeliq) | FR | `privacy@zeliq.com` | [page](https://www.zeliq.com/legal-information/privacy-policy) | 2026-11-09 |
 | HubSpot, Inc. (Clearbit / Breeze Intelligence) | US, IE | `privacy@hubspot.com` | [page](https://clearbit.com/privacy-policy) | 2026-11-09 |
 | Hunter Web Services, Inc. (Hunter) | US, FR | `privacy@hunter.io` | [page](https://hunter.io/privacy-policy) | 2026-11-09 |
@@ -39,6 +38,7 @@ Générée depuis `effacement/courtiers.json` par `outils/liste.py` ; ne pas mod
 | Wiza, Inc. | US, CA | `optout@wiza.com` | [page](https://wiza.co/privacy) | 2026-11-09 |
 | ZoomInfo | US | `privacy@zoominfo.com` | [page](https://www.zoominfo.com/about-zoominfo/privacy-policy) | 2026-11-09 |
 
-**1 sans adresse mail connue** : l'agent ne leur écrit pas tant qu'une adresse publiée n'a pas été trouvée.
+**2 sans adresse mail connue** : l'agent ne leur écrit pas tant qu'une adresse publiée n'a pas été trouvée.
 
 - Acxiom (France)
+- Epsilon

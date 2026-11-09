@@ -77,7 +77,7 @@
  {
   "id": "epsilon",
   "nom": "Epsilon",
-  "canal": "mail",
+  "canal": "aucun",
   "domaines": [
    "epsilon.com",
    "publicisgroupe.com"
@@ -85,12 +85,12 @@
   "expediteurs": [
    "Epsilon"
   ],
-  "adresse": "privacy@epsilon.com",
   "source": "https://www.epsilon.com/privacy",
   "vu_le": "2026-11-09",
   "pays": [
    "US"
-  ]
+  ],
+  "note": "privacy@epsilon.com n'est plus lisible sur les pages d'Epsilon (ancienne page 404, nouvelles pages sans adresse) : à retrouver avant tout envoi"
  },
  {
   "id": "infobel",
