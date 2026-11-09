@@ -13,6 +13,8 @@ trap 'rm -rf "$T"' EXIT
 mkdir -p "$T/effacement" "$T/docs" && cp "$ICI/README.md" "$ICI/CONTRIBUTING.md" "$T/" \
   && cp "$ICI/effacement/courtiers.json" "$T/effacement/" \
   && cp "$ICI/recherche/consigne.md" "$T/consigne.md" || exit 1
+# passe ciblée (facultatif) : FOCUS="Allemagne" sh recherche/lancer.sh
+[ -n "$FOCUS" ] && printf '\nCette passe : concentre-toi sur les courtiers actifs en %s (sources de son autorité de protection des données, annuaires, politiques en langue locale).\n' "$FOCUS" >> "$T/consigne.md"
 # les propositions sont propres à l'utilisateur : elles vivent dans donnees/, hors dépôt
 P="$ICI/donnees/courtiers-proposes.json"
 [ -f "$P" ] || printf '{"a_valider": [], "corrections": []}\n' > "$P"
