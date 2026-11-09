@@ -28,6 +28,7 @@ from email.message import EmailMessage
 from email.utils import make_msgid, formatdate
 from pathlib import Path
 
+os.umask(0o077)   # tout ce que l'agent écrit (journal, copies, dossiers) n'est lisible que par l'utilisateur
 ICI = Path(__file__).resolve().parent
 DONNEES = Path(os.environ.get("EFFACEMENT_DONNEES", ICI.parent / "donnees"))
 DELAI_RELANCE = 30        # jours : article 12.3 du RGPD, un mois
@@ -171,19 +172,26 @@ def envoyer_mail(dest, objet, corps, essai, ident, copie=None, pieces=()):
     return msg["Message-ID"]
 
 
+def cycle(e):
+    """Date de la demande du cycle en cours (la dernière « demande »), et la date de sa relance s'il y en a une."""
+    debut = max((x["date"] for x in e["envois"] if x.get("type") == "demande" and not x.get("essai")), default=None)
+    relance = max((x["date"] for x in e["envois"] if x.get("type") == "relance" and debut and x["date"] >= debut
+                   and not x.get("essai")), default=None)
+    return (date.fromisoformat(debut) if debut else None), (date.fromisoformat(relance) if relance else None)
+
+
 def dus(j, maintenant):
-    """Courtiers à qui une demande est due : jamais envoyée, ou dernier envoi il y a plus de 3 mois."""
+    """Courtiers à qui une demande est due : jamais envoyée, ou demande du cycle en cours vieille de 3 mois ou plus."""
     out = []
     for c in courtiers():
         e = j[c["id"]]
         if c.get("canal") != "mail" or not c.get("adresse"):
             continue
-        if not e["envois"]:
+        debut, _ = cycle(e)
+        if not debut:
             out.append((date.min, c))
-        else:
-            dernier = date.fromisoformat(e["envois"][-1]["date"])
-            if (maintenant - dernier).days >= RENOUVELLEMENT and e["etat"] not in (PIECE, REFUS, A_LIRE, CNIL):
-                out.append((dernier, c))
+        elif (maintenant - debut).days >= RENOUVELLEMENT and e["etat"] not in (PIECE, REFUS, A_LIRE, CNIL):
+            out.append((debut, c))
     out.sort(key=lambda x: x[0])
     return [c for _, c in out]
 
@@ -195,8 +203,8 @@ def cmd_envoyer(n, essai):
         if faits >= n:
             break
         e = j[c["id"]]
-        if c.get("canal") != "mail" or not c.get("adresse"):
-            # Le projet n'écrit que par mail (article 12 du RGPD) : un courtier sans adresse publiée attend la sienne.
+        if c.get("canal") != "mail" or not c.get("adresse") or not _domaine_dans(c["adresse"].rsplit("@", 1)[-1].lower(), c.get("domaines", [])):
+            # Le projet n'écrit que par mail, et seulement à une adresse d'un domaine du courtier (article 12 du RGPD) : un courtier sans adresse publiée attend la sienne.
             continue
         if c["canal"] == "mail":
             mid = envoyer_mail(c["adresse"], OBJET, corps_demande(ident), essai, ident,
@@ -252,7 +260,7 @@ def cmd_relever(essai):
     M = imaplib.IMAP4_SSL(a["imap"])
     M.login(a["utilisateur"], a["mot_de_passe"])
     nouveaux = 0
-    for boite in ("INBOX", "Bulk"):
+    for boite in ("INBOX", "Bulk", "Spam", "Junk", '"[Gmail]/Spam"'):
         if M.select(boite, readonly=True)[0] != "OK":
             continue
         for c in courtiers():
@@ -305,6 +313,8 @@ def cmd_relever(essai):
                         if ok:
                             e["etat"] = PIECE_ENVOYEE
                     nouveaux += 1
+                    if not essai:
+                        sauver_journal(j)   # après chaque réponse traitée : un arrêt ne fait jamais renvoyer un mail
                     log(f"réponse de {c['nom']} : {etat} (« {decoder(msg.get('Subject'))[:80]} »)")
     chercher_validation(M, charger("identite.json"), essai)
     M.logout()
@@ -346,17 +356,27 @@ def rappeler_canal(c, e, msg, ident, essai):
 
 # ---------- pièce d'identité (décision de l'utilisateur : envoi automatique, avec garde-fous) ----------
 
-def authentifie(msg, c):
-    """Vrai si le serveur de réception a vérifié la signature DKIM d'un domaine du courtier
-    et si l'expéditeur affiché est de ce même domaine (un faux mail « du courtier » échoue ici)."""
+def _domaine_dans(dom, domaines):
+    return any(dom == d or dom.endswith("." + d) for d in domaines)
+
+
+def authentifie(msg, c, domaines=None):
+    """Vrai seulement si le PREMIER en-tête Authentication-Results (celui qu'ajoute ton propre fournisseur ; ceux
+    plus bas peuvent avoir été écrits par l'expéditeur) dit dkim=pass pour un domaine exact du courtier, et si
+    l'expéditeur affiché est de ce même domaine."""
+    domaines = domaines or c["domaines"]
     de = (email.utils.parseaddr(decoder(msg.get("From")))[1] or "").lower()
     dom_de = de.rsplit("@", 1)[-1]
-    if not any(dom_de == d or dom_de.endswith("." + d) for d in c["domaines"]):
+    if not _domaine_dans(dom_de, domaines):
         return False
-    res = " ".join(str(v) for v in (msg.get_all("Authentication-Results") or [])).lower()
-    for d in c["domaines"]:
-        if re.search(r"dkim=pass[^;]*header\.(d|i)=@?([a-z0-9.-]*\.)?" + re.escape(d), res):
-            return True
+    tous = msg.get_all("Authentication-Results") or []
+    if not tous:
+        return False
+    res = str(tous[0]).lower()
+    for m in re.finditer(r"dkim=pass\b([^;]*)", res):
+        for d_sig in re.findall(r"header\.(?:d|i)=@?([a-z0-9.-]+?)(?=[\s;)]|$)", m.group(1)):
+            if _domaine_dans(d_sig, domaines) and (dom_de == d_sig or dom_de.endswith("." + d_sig)):
+                return True
     return False
 
 
@@ -375,6 +395,10 @@ def suivre_lien(c, msg, essai):
                   and not re.search(r"unsubscribe|d[ée]sinscri|privacy-policy|politique", u, re.I)), None)
     if not cible:
         return False, "aucun lien de confirmation trouvé"
+    from urllib.parse import urlparse
+    hote = (urlparse(cible).hostname or "").lower()
+    if not _domaine_dans(hote, c["domaines"] + c.get("hotes_liens", [])):
+        return False, f"lien hors des domaines du courtier ({hote}) : non ouvert"
     if essai:
         return True, f"ESSAI : lien non ouvert ({cible[:60]}…)"
     try:
@@ -430,7 +454,10 @@ def envoyer_piece(c, e, msg, ident, essai):
     if any(x.get("type") == "piece" for x in e["envois"]):
         return False, "pièce déjà envoyée une fois à ce courtier"
     texte = f"Demande RGPD a {c['nom']} - {date.today():%d/%m/%Y} - usage unique"
-    piece = filigraner(source, texte)
+    try:
+        piece = filigraner(source, texte)
+    except Exception as ex:  # Pillow absent, image illisible : la demande remonte, rien ne part
+        return False, f"filigrane impossible ({type(ex).__name__}) : installer Pillow"
     corps = ("Madame, Monsieur,\n\n"
              "Suite à votre message, vous trouverez ci-joint une copie de ma pièce d'identité, portant un filigrane qui en "
              "limite l'usage, afin de vérifier mon identité pour ma demande d'effacement (article 12.6 du RGPD).\n\n"
@@ -474,8 +501,7 @@ def chercher_validation(M, ident, essai):
         msg = email.message_from_bytes(d[0][1])
         if v["objet"] not in decoder(msg.get("Subject")):
             continue
-        res = " ".join(str(x) for x in (msg.get_all("Authentication-Results") or [])).lower()
-        if not re.search(r"dkim=pass[^;]*header\.(d|i)=@?([a-z0-9.-]*\.)?" + re.escape(dom), res):
+        if not authentifie(msg, {"domaines": [dom]}):
             log("réponse au point non authentifiée : ignorée")
             continue
         if not re.match(r"\s*oui\b", texte(msg), re.I):
@@ -510,31 +536,32 @@ def chercher_validation(M, ident, essai):
 # ---------- relances ----------
 
 def cmd_relancer(essai):
+    """Relance un mois après la demande (article 12.3), puis prépare la plainte un mois après la relance.
+    Les délais se comptent depuis la demande du cycle, pas depuis le dernier mail."""
     ident, j, auj = charger("identite.json"), journal(), date.today()
     for c in courtiers():
         e = j[c["id"]]
-        if e["etat"] not in (ENVOYE, RELANCE, PIECE_ENVOYEE) or not e["envois"]:
+        if e["etat"] not in (ENVOYE, RELANCE, PIECE_ENVOYEE) or c.get("canal") != "mail" or not c.get("adresse"):
             continue
-        dernier = e["envois"][-1]
-        jours = (auj - date.fromisoformat(dernier["date"])).days
-        if e["etat"] in (ENVOYE, PIECE_ENVOYEE) and jours >= DELAI_RELANCE:
-            premier = date.fromisoformat(dernier["date"]).strftime("%d/%m/%Y")
-            if c.get("canal") != "mail" or not c.get("adresse"):
-                continue
-            if c["canal"] == "mail":
-                mid = envoyer_mail(c["adresse"], "Relance : " + OBJET, corps_demande(ident, relance_du=premier), essai, ident,
-                                   copie=f"{auj.isoformat()}-{c['id']}-relance.eml")
-                e["envois"].append({"date": auj.isoformat(), "type": "relance", "canal": "mail", "message_id": mid, "essai": essai})
+        debut, relance = cycle(e)
+        if not debut:
+            continue
+        if not relance and (auj - debut).days >= DELAI_RELANCE:
+            mid = envoyer_mail(c["adresse"], "Relance : " + OBJET, corps_demande(ident, relance_du=debut.strftime("%d/%m/%Y")),
+                               essai, ident, copie=f"{auj.isoformat()}-{c['id']}-relance.eml")
+            e["envois"].append({"date": auj.isoformat(), "type": "relance", "canal": "mail", "message_id": mid, "essai": essai})
             e["etat"] = RELANCE
-            log(f"{c['nom']} : relancé ({jours} jours sans réponse)")
+            log(f"{c['nom']} : relancé ({(auj - debut).days} jours après la demande)")
             if not essai:
                 sauver_journal(j)
-        elif e["etat"] == RELANCE and jours >= DELAI_RECLAMATION:
+        elif relance and (auj - relance).days >= DELAI_RECLAMATION:
+            if essai:
+                log(f"ESSAI : {c['nom']} : réclamation CNIL serait préparée")
+                continue
             e["etat"] = CNIL
             dossier = preparer_reclamation(c, e, ident)
             log(f"{c['nom']} : sans réponse après relance, réclamation CNIL prête ({dossier.name})")
-    if not essai:
-        sauver_journal(j)
+            sauver_journal(j)
 
 
 # ---------- réclamation CNIL ----------
@@ -637,7 +664,7 @@ def cmd_noter(cid, jour, essai):
     e["etat"] = ENVOYE
     if not essai:
         sauver_journal(j)
-    log(f"{cid} : demande faite à la main le {jour}, enregistrée")
+    log(f"{cid} : demande faite à la main le {jour}, {'non enregistrée (essai)' if essai else 'enregistrée'}")
 
 
 def cmd_etat():
