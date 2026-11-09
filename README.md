@@ -1,8 +1,8 @@
-# Agent - Data Eraser
+# Agent - EU Data Eraser
 
 *English · [Français](README.fr.md)*
 
-A permanent agent that runs on your own machine and asks data brokers, on your behalf and in your name, to erase your personal data (right to erasure, Article 17 GDPR). It does the job of a service like Incogni, in the open: every request, reply and follow-up stays with you.
+A permanent agent for people in the European Union, France first for now. It runs on your own machine and asks data brokers, on your behalf and in your name, to erase your personal data (right to erasure, Article 17 GDPR). It does the job of a service like Incogni, in the open: every request, reply and follow-up stays with you.
 
 ![Diagram: the eraser agent writes from your own mailbox to each broker's data protection officer; the research agent proposes new brokers to the shared list](docs/images/schema.en.svg)
 
@@ -28,7 +28,7 @@ The emails are written in French and cite the French authority (CNIL): the proje
 Easiest: clone the repository, copy `skill/effacement-donnees/` into `~/.claude/skills/`, then tell Claude Code "installe l'agent d'effacement". It walks you through the setup one question at a time. By hand:
 
 ```sh
-git clone https://github.com/anthohunt/agent-effaceur-de-donnees ~/agent-effaceur-de-donnees && cd ~/agent-effaceur-de-donnees
+git clone https://github.com/anthohunt/agent-eu-data-eraser ~/agent-eu-data-eraser && cd ~/agent-eu-data-eraser
 python3 -m venv .venv && .venv/bin/pip install pillow playwright && .venv/bin/playwright install chromium
 echo '{"nom": "…", "mails": ["…"], "telephones": ["…"], "adresses": ["…"], "expediteur": "…", "destinataire_point": "…"}' | python3 installer.py identite
 echo '<app password>' | python3 installer.py boite yahoo <address>   # or gmail, or "imap.x:smtp.x"
