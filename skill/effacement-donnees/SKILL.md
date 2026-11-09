@@ -8,14 +8,15 @@ description: Installe et règle l'agent d'effacement de données personnelles (d
 Tu installes, avec l'utilisateur, le dépôt `effacement-donnees` sur SA machine. Tu parles français, simplement, **une question à la fois**, chaque question à choix avec des options A/B/C et une option ouverte. Tout ce qui est personnel va dans `donnees/` (ignoré par git, lisible par le seul utilisateur) par `installer.py` ; rien de personnel n'entre jamais dans le dépôt, ni dans une demande de fusion.
 
 ## 0. Dire d'abord ce que c'est, et ce qui restera à l'utilisateur
-En 3 lignes : l'agent écrit en son nom, depuis sa propre boîte, au délégué à la protection des données de chaque courtier de la liste ; il relance après un mois (article 12.3 du RGPD) ; il lui envoie un point chaque lundi. Restent à l'utilisateur : valider une fois le modèle et la liste, valider chaque nouvelle adresse d'un « OUI » au point, et déposer lui-même une plainte à la CNIL quand l'agent l'a préparée. La machine doit rester allumée (le calendrier tourne dessus). Aucun mandat à signer : il exerce lui-même son droit.
+En 3 lignes : l'agent écrit en son nom, depuis sa propre boîte, au délégué à la protection des données de chaque courtier de la liste ; il relance après un mois (article 12.3 du RGPD) ; il lui envoie un point chaque lundi. Restent à l'utilisateur : valider une fois le modèle et la liste, valider chaque nouvelle adresse d'un « OUI » au point, et déposer lui-même une plainte auprès de son autorité (la CNIL en France) quand l'agent l'a préparée. La machine doit rester allumée (le calendrier tourne dessus). Aucun mandat à signer : il exerce lui-même son droit.
 
 ## 1. Le dépôt
 S'il n'est pas déjà là : `git clone https://github.com/anthohunt/agent-eu-data-eraser ~/agent-eu-data-eraser`. Vérifier `python3 --version` (3.9 ou plus) et que la machine a cron (Linux ou macOS). Installer `python3 -m venv .venv && .venv/bin/pip install pillow playwright && .venv/bin/playwright install chromium` (filigrane de la pièce, liens de confirmation). L'agent de recherche a besoin de Claude Code (`claude`).
 
 ## 2. Les éléments à effacer (un par un)
 Nom tel qu'il apparaît dans les fichiers ; toutes ses adresses mail ; ses numéros de téléphone ; ses adresses postales, anciennes comprises (les fichiers de prospection les gardent longtemps). Expliquer en une phrase : ce sont les clés avec lesquelles chaque courtier cherche sa fiche ; plus il y en a, plus on la trouve. Puis :
-`echo '{"nom":…,"mails":[…],"telephones":[…],"adresses":[…],"expediteur":"<boîte d'envoi>","destinataire_point":"<où recevoir le point>"}' | python3 installer.py identite`
+Demander aussi son pays (code ISO : son autorité de protection des données, voir `docs/autorites.md`) et la langue des mails (`fr` ou `en`). Puis :
+`echo '{"nom":…,"mails":[…],"telephones":[…],"adresses":[…],"pays":"FR","langue":"fr","expediteur":"<boîte d'envoi>","destinataire_point":"<où recevoir le point>"}' | python3 installer.py identite`
 
 ## 3. La boîte d'envoi
 Celle d'où partent les demandes (une de ses adresses : la demande prouve alors qu'elle lui appartient). Fournisseur : A Yahoo, B Gmail, C autre (demander ses serveurs IMAP et SMTP en SSL). Lui faire créer un **mot de passe d'application réservé à cet agent** (Yahoo : Sécurité du compte › Connexions externes ; Gmail : Compte Google › Sécurité › Mots de passe des applications, validation en deux étapes requise) et le lui faire dicter ; ne jamais le recopier ailleurs. Lui dire : pour couper l'agent, il suffit de supprimer ce mot de passe chez le fournisseur.

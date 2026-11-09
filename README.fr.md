@@ -22,7 +22,7 @@ Installer une fois, valider le modèle et la liste, dire « OUI » aux nouvelles
 Le RGPD n'impose aucune forme à une demande. Un courtier peut proposer un formulaire, mais une demande envoyée à l'adresse qu'il publie pour les droits est en général effective et doit être traitée (Comité européen de la protection des données, [lignes directrices 01/2022](https://www.edpb.europa.eu/system/files/2023-04/edpb_guidelines_202201_data_subject_rights_access_v2_en.pdf), points 52-53 : écrites pour le droit d'accès, elles appliquent l'article 12 du RGPD, commun à tous les droits). Le projet n'écrit donc que par mail et ne passe jamais par un formulaire ni un captcha.
 
 ## Portée
-Les mails sont rédigés en français et citent la CNIL : le projet est fait pour les personnes qui vivent en France. Les courtiers de la liste opèrent en France et dans l'UE ; ailleurs dans l'UE, on peut adapter les modèles dans `effacement/agent.py`.
+Pour les personnes qui vivent dans l'UE, l'EEE ou au Royaume-Uni. Les demandes partent en français ou en anglais (`langue`), et l'agent cite l'autorité de ton pays et prépare la plainte pour elle : [`docs/autorites.md`](docs/autorites.md) liste les 31 autorités et leur page de plainte, lues sur leurs sites officiels (celui de la Lituanie n'a pas pu être lu). Il a d'abord servi pour de vrai en France ; la liste des courtiers est surtout française et internationale pour l'instant.
 
 ## Installation
 Le plus simple : cloner le dépôt, copier `skill/effacement-donnees/` dans `~/.claude/skills/`, puis dire à Claude Code « installe l'agent d'effacement ». Il conduit l'installation une question à la fois. À la main :
@@ -30,7 +30,7 @@ Le plus simple : cloner le dépôt, copier `skill/effacement-donnees/` dans `~/.
 ```sh
 git clone https://github.com/anthohunt/agent-eu-data-eraser ~/agent-eu-data-eraser && cd ~/agent-eu-data-eraser
 python3 -m venv .venv && .venv/bin/pip install pillow playwright && .venv/bin/playwright install chromium
-echo '{"nom": "…", "mails": ["…"], "telephones": ["…"], "adresses": ["…"], "expediteur": "…", "destinataire_point": "…"}' | python3 installer.py identite
+echo '{"nom": "…", "mails": ["…"], "telephones": ["…"], "adresses": ["…"], "pays": "FR", "langue": "fr", "expediteur": "…", "destinataire_point": "…"}' | python3 installer.py identite
 echo '<mot de passe d application>' | python3 installer.py boite yahoo <adresse>   # ou gmail, ou "imap.x:smtp.x"
 python3 installer.py piece recto.jpg     # facultatif
 python3 installer.py calendrier          # pose les tâches planifiées (cron)

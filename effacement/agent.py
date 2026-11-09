@@ -103,39 +103,15 @@ def journal():
 
 # ---------- le modèle validé ----------
 
-def liste_donnees(ident):
-    morceaux = [ident["nom"]]
-    morceaux += [f"adresse électronique {m}" for m in ident["mails"]]
-    morceaux += [f"numéro de téléphone {t}" for t in ident.get("telephones", [])]
-    morceaux += [f"adresse postale {a}" for a in ident.get("adresses", [])]
-    return ", ".join(morceaux)
+import textes as T
+
+
+def OBJ(ident):
+    return T.OBJET[T.langue(ident)]
 
 
 def corps_demande(ident, relance_du=None):
-    """Texte du modèle validé le 09/11/2026 (docs/modele-demande.md). Ne pas modifier sans nouvelle validation."""
-    tete = ""
-    if relance_du:
-        tete = (f"Je vous ai adressé le {relance_du} une demande d'effacement de mes données personnelles, "
-                "restée sans réponse à ce jour. Je la renouvelle ci-dessous.\n\n")
-    return (
-        "Madame, Monsieur,\n\n" + tete +
-        "En application de l'article 17.1 du Règlement général sur la protection des données (RGPD), "
-        "je vous prie d'effacer de vos fichiers les données personnelles suivantes me concernant : "
-        f"{liste_donnees(ident)}, ainsi que toute donnée qui y est rattachée.\n\n"
-        "Je demande que ces informations soient supprimées car je retire tout consentement que j'aurais pu "
-        "donner à leur traitement (article 17.1.b) et je m'oppose à leur utilisation à des fins de prospection "
-        "(articles 21.2 et 17.1.c du RGPD).\n\n"
-        "Vous voudrez bien également notifier cette demande d'effacement aux organismes auxquels vous les auriez "
-        "communiquées (article 19 du RGPD).\n\n"
-        "Je vous prie de m'informer de ces éléments dans les meilleurs délais et au plus tard dans un délai d'un "
-        "mois à compter de la réception de ce courrier (article 12.3 du RGPD). À défaut de réponse de votre part "
-        "dans ce délai ou en cas de réponse incomplète, je saisirai la Commission nationale de l'informatique et "
-        "des libertés (CNIL) d'une réclamation.\n\n"
-        "Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.\n\n"
-        f"{ident['nom']}\n")
-
-
-OBJET = "Demande d'effacement de données personnelles (article 17 du RGPD)"
+    return T.demande(ident, relance_du)
 
 
 # ---------- envoi ----------
@@ -207,7 +183,7 @@ def cmd_envoyer(n, essai):
             # Le projet n'écrit que par mail, et seulement à une adresse d'un domaine du courtier (article 12 du RGPD) : un courtier sans adresse publiée attend la sienne.
             continue
         if c["canal"] == "mail":
-            mid = envoyer_mail(c["adresse"], OBJET, corps_demande(ident), essai, ident,
+            mid = envoyer_mail(c["adresse"], OBJ(ident), corps_demande(ident), essai, ident,
                                copie=f"{auj.isoformat()}-{c['id']}-demande.eml")
             e["envois"].append({"date": auj.isoformat(), "type": "demande", "canal": "mail", "message_id": mid, "essai": essai})
             e["etat"] = ENVOYE
@@ -326,18 +302,7 @@ def cmd_relever(essai):
 # ---------- courtier qui renvoie vers son formulaire ----------
 
 def corps_rappel_canal(ident, depuis):
-    """Réponse type, gardée dans le dépôt : le mail suffit, le formulaire n'est pas obligatoire."""
-    return ("Madame, Monsieur,\n\n"
-            f"Vous m'invitez à passer par votre formulaire. Ma demande d'effacement du {depuis} a été adressée à l'adresse "
-            "que vous publiez pour l'exercice des droits : elle est valable telle quelle.\n\n"
-            "Le RGPD n'impose aucune forme à une demande, et la personne concernée n'est pas tenue d'utiliser le canal "
-            "que vous préférez : une demande faite par un autre canal fourni par l'organisme est en général effective et "
-            "doit être traitée (Comité européen de la protection des données, lignes directrices 01/2022, points 52 et 53 ; "
-            "article 12.2 du RGPD).\n\n"
-            "Je vous remercie donc de traiter ma demande dans le délai d'un mois à compter de sa réception (article 12.3 du "
-            "RGPD). À défaut, je saisirai la Commission nationale de l'informatique et des libertés (CNIL) d'une réclamation.\n\n"
-            "Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.\n\n"
-            f"{ident['nom']}\n")
+    return T.rappel_canal(ident, depuis)
 
 
 def rappeler_canal(c, e, msg, ident, essai):
@@ -346,7 +311,7 @@ def rappeler_canal(c, e, msg, ident, essai):
     if any(x.get("type") == "rappel-canal" for x in e["envois"]):
         return False, "déjà rappelé une fois : la relance à un mois suivra"
     premiere = next((x["date"] for x in e["envois"] if x.get("type") == "demande"), date.today().isoformat())
-    objet = decoder(msg.get("Subject")) or OBJET
+    objet = decoder(msg.get("Subject")) or OBJ(ident)
     objet = objet if objet.lower().startswith("re:") else "Re: " + objet
     mid = envoyer_mail(c["adresse"], objet, corps_rappel_canal(ident, date.fromisoformat(premiere).strftime("%d/%m/%Y")),
                        essai, ident, copie=f"{date.today().isoformat()}-{c['id']}-rappel-canal.eml")
@@ -458,14 +423,8 @@ def envoyer_piece(c, e, msg, ident, essai):
         piece = filigraner(source, texte)
     except Exception as ex:  # Pillow absent, image illisible : la demande remonte, rien ne part
         return False, f"filigrane impossible ({type(ex).__name__}) : installer Pillow"
-    corps = ("Madame, Monsieur,\n\n"
-             "Suite à votre message, vous trouverez ci-joint une copie de ma pièce d'identité, portant un filigrane qui en "
-             "limite l'usage, afin de vérifier mon identité pour ma demande d'effacement (article 12.6 du RGPD).\n\n"
-             "Cette copie ne peut servir qu'à cette vérification : je vous demande de la supprimer dès la vérification faite, "
-             "et de me confirmer l'effacement de mes données dans le délai prévu à l'article 12.3.\n\n"
-             "Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.\n\n"
-             f"{ident['nom']}\n")
-    objet = decoder(msg.get("Subject")) or OBJET
+    corps = T.piece(ident)
+    objet = decoder(msg.get("Subject")) or OBJ(ident)
     objet = objet if objet.lower().startswith("re:") else "Re: " + objet
     mid = envoyer_mail(c["adresse"], objet, corps, essai, ident,
                        copie=f"{date.today().isoformat()}-{c['id']}-piece.eml", pieces=[piece])
@@ -504,7 +463,7 @@ def chercher_validation(M, ident, essai):
         if not authentifie(msg, {"domaines": [dom]}):
             log("réponse au point non authentifiée : ignorée")
             continue
-        if not re.match(r"\s*oui\b", texte(msg), re.I):
+        if not re.match(r"\s*(oui|yes)\b", texte(msg), re.I):
             continue
         a_valider, corrections = propositions()
         liste = courtiers()
@@ -547,7 +506,7 @@ def cmd_relancer(essai):
         if not debut:
             continue
         if not relance and (auj - debut).days >= DELAI_RELANCE:
-            mid = envoyer_mail(c["adresse"], "Relance : " + OBJET, corps_demande(ident, relance_du=debut.strftime("%d/%m/%Y")),
+            mid = envoyer_mail(c["adresse"], T.PREFIXE_RELANCE[T.langue(ident)] + OBJ(ident), corps_demande(ident, relance_du=debut.strftime("%d/%m/%Y")),
                                essai, ident, copie=f"{auj.isoformat()}-{c['id']}-relance.eml")
             e["envois"].append({"date": auj.isoformat(), "type": "relance", "canal": "mail", "message_id": mid, "essai": essai})
             e["etat"] = RELANCE
@@ -575,16 +534,7 @@ def preparer_reclamation(c, e, ident):
     envois = [x for x in e["envois"] if not x.get("essai")]
     dates = "\n".join(f"- {date.fromisoformat(x['date']).strftime('%d/%m/%Y')} : "
                        f"{'demande' if x['type'] == 'demande' else 'relance'} ({x['canal']})" for x in envois)
-    texte = (
-        f"Objet : absence de réponse à une demande d'effacement de données personnelles (article 17 du RGPD)\n\n"
-        f"Organisme : {c['nom']}" + (f", {c['adresse']}" if c.get("adresse") else "") + "\n\n"
-        "Madame, Monsieur,\n\n"
-        f"J'ai demandé à cet organisme d'effacer mes données personnelles et je me suis opposé à leur utilisation "
-        f"à des fins de prospection (articles 17 et 21 du RGPD) :\n{dates}\n\n"
-        "Je n'ai reçu aucune réponse satisfaisante, au-delà du délai d'un mois prévu par l'article 12.3 du RGPD, "
-        "malgré ma relance. Je vous demande d'intervenir pour que l'organisme donne suite à ma demande.\n\n"
-        "Pièces jointes : copies de mes demandes et des échanges, numérotées dans l'ordre chronologique.\n\n"
-        f"{ident['nom']}\n")
+    texte = T.plainte(ident, f"{c['nom']}" + (f", {c['adresse']}" if c.get("adresse") else ""), dates)
     z = d / f"{date.today().isoformat()}-{c['id']}-reclamation.zip"
     with zipfile.ZipFile(z, "w") as zf:
         zf.writestr("00-texte-de-la-plainte.txt", texte)
@@ -624,30 +574,30 @@ def cmd_point(essai):
     ident, j = charger("identite.json"), journal()
     lignes, total, reussis = resume(j)
     a_toi = [l for l in lignes if l[0] in REMONTE]
-    corps = [f"Effacements confirmés (ou aucune donnée détenue) : {reussis} sur {total} (objectif : 80 % sous trois mois).", ""]
+    P = T.POINT[T.langue(ident)]
+    corps = [P["score"].format(ok=reussis, total=total), ""]
     if a_toi:
-        corps.append("À toi de voir :")
+        corps.append(P["a_toi"])
         corps += [f"• {nom} : {etat}" for etat, nom, _ in a_toi]
         corps.append("")
-    corps.append("État de chaque courtier :")
-    corps += [f"• {nom} : {etat} (dernier envoi : {d})" for etat, nom, d in sorted(lignes)]
+    corps.append(P["etat"])
+    corps += [f"• {nom} : {etat} ({P['dernier']} : {d if d != 'jamais' else P['jamais']})" for etat, nom, d in sorted(lignes)]
     texte_point = "\n".join(corps) + "\n"
-    objet = f"[Effacement] Point du {date.today():%d/%m} : {reussis}/{total} effacements confirmés"
+    objet = P["objet"].format(date=f"{date.today():%d/%m}", ok=reussis, total=total)
     a_valider, corrections = propositions()
     if a_valider or corrections:
-        texte_point += f"\nNouveaux courtiers proposés par l'agent de recherche ({len(a_valider)}) :\n"
-        texte_point += "".join(f"• {x['nom']} — {x['adresse']} (source : {x['source']})\n" for x in a_valider)
+        texte_point += "\n" + P["nouveaux"].format(n=len(a_valider)) + "\n"
+        texte_point += "".join(f"• {x['nom']} — {x['adresse']} ({P['source']} : {x['source']})\n" for x in a_valider)
         if corrections:
-            texte_point += "Adresses changées :\n" + "".join(f"• {x['id']} : {x['ancienne']} → {x['nouvelle']} (source : {x['source']})\n" for x in corrections)
-        texte_point += "Réponds « OUI » à ce mail pour tout valider ; sans réponse, rien ne change.\n"
+            texte_point += P["corrections"] + "\n" + "".join(f"• {x['id']} : {x['ancienne']} → {x['nouvelle']} ({P['source']} : {x['source']})\n" for x in corrections)
+        texte_point += P["valider"] + "\n"
         if not essai:
             (DONNEES / "validation.json").write_text(json.dumps({"date": date.today().isoformat(), "objet": objet,
                 "ids": [x["id"] for x in a_valider], "corrections": [x["id"] for x in corrections]}, ensure_ascii=False))
     prets = sorted((DONNEES / "cnil").glob("*-reclamation.zip")) if (DONNEES / "cnil").exists() else []
     a_joindre = [z for z in prets if not (z.with_suffix(".envoye")).exists()]
     if a_joindre:
-        texte_point += ("\nRéclamations CNIL prêtes, en pièces jointes : à déposer sur https://www.cnil.fr/fr/plaintes "
-                        "(coller le texte 00, joindre les autres pièces).\n")
+        texte_point += "\n" + P["plaintes"].format(url=T.autorite(ident.get("pays", "FR")).get("plainte_url", "")) + "\n"
     envoyer_mail(ident["destinataire_point"], objet, texte_point, essai, ident, pieces=a_joindre)
     if not essai:
         for z in a_joindre:

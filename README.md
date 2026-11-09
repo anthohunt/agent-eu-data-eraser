@@ -22,7 +22,7 @@ Install once, approve the template and the list, say yes to new addresses, file 
 The GDPR imposes no form for a request. A broker may offer a web form, but a request sent to the address it publishes for privacy rights is in general effective and must be handled (European Data Protection Board, [Guidelines 01/2022](https://www.edpb.europa.eu/system/files/2023-04/edpb_guidelines_202201_data_subject_rights_access_v2_en.pdf), points 52-53: written for the right of access, they apply GDPR Article 12, common to all rights). So the project only ever writes by email, never through a form or a captcha.
 
 ## Scope
-The emails are written in French and cite the French authority (CNIL): the project is built for people living in France. The brokers on the list operate in France and the EU; users elsewhere in the EU can adapt the templates in `effacement/agent.py`.
+For people in the EU, the EEA and the UK. The requests are written in French or English (`langue`), and the agent names your own country's authority and prepares the complaint for it: [`docs/autorites.md`](docs/autorites.md) lists the 31 authorities and their complaint pages, read on their official sites (Lithuania's site could not be read). It has been used for real in France first; the broker list is mostly French and international for now.
 
 ## Installation
 Easiest: clone the repository, copy `skill/effacement-donnees/` into `~/.claude/skills/`, then tell Claude Code "installe l'agent d'effacement". It walks you through the setup one question at a time. By hand:
@@ -30,7 +30,7 @@ Easiest: clone the repository, copy `skill/effacement-donnees/` into `~/.claude/
 ```sh
 git clone https://github.com/anthohunt/agent-eu-data-eraser ~/agent-eu-data-eraser && cd ~/agent-eu-data-eraser
 python3 -m venv .venv && .venv/bin/pip install pillow playwright && .venv/bin/playwright install chromium
-echo '{"nom": "…", "mails": ["…"], "telephones": ["…"], "adresses": ["…"], "expediteur": "…", "destinataire_point": "…"}' | python3 installer.py identite
+echo '{"nom": "…", "mails": ["…"], "telephones": ["…"], "adresses": ["…"], "pays": "DE", "langue": "en", "expediteur": "…", "destinataire_point": "…"}' | python3 installer.py identite
 echo '<app password>' | python3 installer.py boite yahoo <address>   # or gmail, or "imap.x:smtp.x"
 python3 installer.py piece front.jpg     # optional: ID card, for authenticated requests only
 python3 installer.py calendrier          # installs the schedule (cron)

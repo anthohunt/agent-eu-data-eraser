@@ -1,0 +1,403 @@
+[
+ {
+  "pays": "AT",
+  "autorite": "Österreichische Datenschutzbehörde (DSB)",
+  "autorite_en": "Austrian Data Protection Authority",
+  "site": "https://www.dsb.gv.at/",
+  "plainte_url": "https://www.dsb.gv.at/eingabe-an-die-dsb/beschwerde",
+  "plainte_notes": "Formulaire en ligne, e-mail (dsb@dsb.gv.at) ou courrier (Barichgasse 40-42, 1030 Wien) ; formulaires distincts selon le droit violé (page Formulare & Muster). En allemand (l'anglais n'est pas officiel). Pas de plainte anonyme : identification obligatoire. Pour les droits à demander d'abord (accès, rectification, effacement), joindre la copie de la demande faite à l'organisme et sa réponse éventuelle. Doit préciser : le droit violé, nom/adresse précis du défendeur (pas de plainte contre 'Unbekannt'), les faits, les motifs, la demande de constat, et les éléments montrant que la plainte est dans les délais.",
+  "source": [
+   "https://www.dsb.gv.at/",
+   "https://www.dsb.gv.at/eingabe-an-die-dsb/beschwerde"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "BE",
+  "autorite": "Autorité de protection des données (APD) / Gegevensbeschermingsautoriteit (GBA)",
+  "autorite_en": "Belgian Data Protection Authority",
+  "site": "https://www.autoriteprotectiondonnees.be/",
+  "plainte_url": "https://www.autoriteprotectiondonnees.be/citoyen/agir/introduire-une-plainte",
+  "plainte_notes": "Dépôt en ligne via le portail https://moncompte.autoriteprotectiondonnees.be/login (compte citoyen à créer ; eID non mentionné sur la page) ou formulaire papier envoyé par courrier. Démarche préalable : exercer d'abord ses droits auprès du responsable de traitement et attendre un mois (contacter aussi l'organisme au préalable pour les autres cas). Plainte en français, néerlandais ou allemand, datée et signée (signature manuscrite ou électronique via le portail), avec exposé des faits, preuves, coordonnées de l'organisme, tous les échanges avec lui (e-mails en EML/MSG avec en-têtes, preuve de recommandé ou captures complètes), procuration si représentant. Pas recevable si déjà devant un tribunal ou la police. Identité normalement communiquée à la partie adverse.",
+  "source": [
+   "https://www.autoriteprotectiondonnees.be/citoyen/agir/introduire-une-plainte"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "BG",
+  "autorite": "Комисия за защита на личните данни (КЗЛД)",
+  "autorite_en": "Commission for Personal Data Protection (CPDP)",
+  "site": "https://cpdp.bg/",
+  "plainte_url": "https://cpdp.bg/%d0%bf%d0%be%d0%b4%d0%b0%d0%b2%d0%b0%d0%bd%d0%b5-%d0%bd%d0%b0-%d0%b6%d0%b0%d0%bb%d0%b1%d0%b8-%d0%b8-%d1%81%d0%b8%d0%b3%d0%bd%d0%b0%d0%bb%d0%b8-%d0%b4%d0%be-%d0%ba%d0%b7%d0%bb%d0%b4/",
+  "plainte_notes": "Page en bulgare (titre 'Подаване на жалби и сигнали до КЗЛД'). Dépôt : en personne au greffe (София 1592, бул. Проф. Цветан Лазаров 2), par courrier à la même adresse, par e-mail kzld@cpdp.bg (uniquement si document électronique signé par signature électronique qualifiée KEP ; scans/photos non signés non examinés) ou via le Système de remise électronique sécurisée. Contenu exigé : nom, adresse de correspondance et permanente, téléphone, e-mail si dispo ; nature de la plainte ; date de connaissance de la violation ; personne visée ; date et signature (KEP pour l'électronique, manuscrite pour le papier). Démarche préalable auprès de l'organisme non mentionnée sur la page. Le portail signal-public.cpdp.bg concerne les lanceurs d'alerte, pas les plaintes. La page d'accueil du site a un certificat TLS non vérifiable par WebFetch (lu via curl).",
+  "source": [
+   "https://cpdp.bg/",
+   "https://cpdp.bg/%d0%bf%d0%be%d0%b4%d0%b0%d0%b2%d0%b0%d0%bd%d0%b5-%d0%bd%d0%b0-%d0%b6%d0%b0%d0%bb%d0%b1%d0%b8-%d0%b8-%d1%81%d0%b8%d0%b3%d0%bd%d0%b0%d0%bb%d0%b8-%d0%b4%d0%be-%d0%ba%d0%b7%d0%bb%d0%b4/"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "CY",
+  "autorite": "Επίτροπος Προστασίας Δεδομένων Προσωπικού Χαρακτήρα (Γραφείο Επιτρόπου)",
+  "autorite_en": "Office of the Commissioner for Personal Data Protection",
+  "site": "https://www.gov.cy/dataprotection/en/",
+  "plainte_url": "https://www.gov.cy/dataprotection/en/information-for-the-public/lodge-a-complaint/",
+  "plainte_notes": "Remplir l'un des trois formulaires et l'envoyer au Commissaire : A (droits de la personne : accès, opposition, rectification, effacement, limitation, portabilité), B (autre violation), C (communications électroniques non sollicitées/spam). Les formulaires sont à télécharger sur la page (non ouverts ici). Contacter d'abord le responsable de traitement ou son DPO ('may contact' : recommandé). Plaintes anonymes, vagues ou dépourvues de détails possibles non examinées ; identité pouvant être communiquée au responsable. Langue exigée non précisée (site en grec et anglais). Appel possible devant le tribunal administratif sous 75 jours. Note : dataprotection.gov.cy redirige vers gov.cy/dataprotection (WAF bloquant WebFetch, lu via curl).",
+  "source": [
+   "https://www.gov.cy/dataprotection/en/information-for-the-public/lodge-a-complaint/"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "CZ",
+  "autorite": "Úřad pro ochranu osobních údajů (ÚOOÚ)",
+  "autorite_en": "Office for Personal Data Protection",
+  "site": "https://uoou.gov.cz/",
+  "plainte_url": "https://uoou.gov.cz/poradna/chci-podat-stiznost-na-spravce-nebo-zpracovatele",
+  "plainte_notes": "Stížnost (art. 77 RGPD) réservée à la personne directement concernée (ou son représentant, avec procuration) ; pour des données d'autrui, formulaire de 'podnět' distinct (https://uoou.gov.cz/verejnost/podnet-na-poruseni-predpisu-na-ochranu-osobnich-udaju). Formulaire en ligne sur le site ; envoi aussi par boîte de données (ID qkbaa2n), courrier (Pplk. Sochora 27, 170 00 Praha 7) ou en personne. Par e-mail posta@uoou.gov.cz seulement avec signature électronique reconnue, sinon confirmer par formulaire signé à la main envoyé par courrier. Contenu : identité et coordonnées, nom du responsable/sous-traitant, description du traitement, catégories de données, pièces sur le lien avec le responsable. Langue exigée et démarche préalable non mentionnées sur la page. Pas de délai indiqué.",
+  "source": [
+   "https://uoou.gov.cz/",
+   "https://uoou.gov.cz/poradna/chci-podat-stiznost-na-spravce-nebo-zpracovatele",
+   "https://uoou.gov.cz/verejnost/podnet-na-poruseni-predpisu-na-ochranu-osobnich-udaju"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "DE",
+  "autorite": "Der Bundesbeauftragte für den Datenschutz und die Informationsfreiheit (BfDI)",
+  "autorite_en": "Federal Commissioner for Data Protection and Freedom of Information (BfDI)",
+  "site": "https://www.bfdi.bund.de/EN/Home/home_node.html",
+  "plainte_url": "https://www.bfdi.bund.de/EN/Service/Anschriften/Laender/Laender-node.html",
+  "plainte_notes": "Principe : les autorités des 16 Länder contrôlent les organismes publics du Land/communes et, en général, le secteur privé (entreprises, courtiers) ; la plainte va donc à l'autorité du Land compétent (siège ou établissement de l'organisme). Le BfDI traite surtout les organismes fédéraux, la poste et les télécoms. Liste officielle des autorités des Länder : plainte_url ; page de compétence BfDI : https://www.bfdi.bund.de/EN/Buerger/Inhalte/Allgemein/Datenschutz/Zust%C3%A4ndigkeit-BfDI.html?nn=253682 . Les exigences précises (démarche préalable, langue, identification) varient selon le Land et n'ont pas été relevées.",
+  "source": [
+   "https://www.bfdi.bund.de/EN/Home/home_node.html",
+   "https://www.bfdi.bund.de/EN/Service/Anschriften/Laender/Laender-node.html"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "DK",
+  "autorite": "Datatilsynet",
+  "autorite_en": "Danish Data Protection Agency",
+  "site": "https://www.datatilsynet.dk/english",
+  "plainte_url": "https://www.datatilsynet.dk/english/file-a-complaint",
+  "plainte_notes": "Formulaire numérique privilégié avec connexion MitID (plainte et reçu téléchargeables). Sans MitID : e-mail dt@datatilsynet.dk ou courrier (Carl Jacobsens Vej 35, 2500 Valby), voir la page de contact. Contacter d'abord l'organisme concerné. Minimum : nom et adresse ; plaintes anonymes en général non traitées. Représentation possible par procuration (formulaire ou écrite à la main et scannée). Pièces jointes : pas de .exe, .zip, .rar, audio ou vidéo ; pas de liens externes ni de clé USB. Langue exigée non précisée (page en danois et anglais ; version danoise : https://www.datatilsynet.dk/borger/klage/saadan-klager-du).",
+  "source": [
+   "https://www.datatilsynet.dk/english",
+   "https://www.datatilsynet.dk/english/file-a-complaint"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "EE",
+  "autorite": "Andmekaitse Inspektsioon (AKI)",
+  "autorite_en": "Estonian Data Protection Inspectorate",
+  "site": "https://www.aki.ee/en",
+  "plainte_url": "https://www.aki.ee/meist/vota-uhendust/kaebus-isikuandmete-kaitse-asjas",
+  "plainte_notes": "Page en estonien (pas d'équivalent anglais lié). Dépôt via le e-service de l'AKI (connexion ID-card, Mobile-ID ou Smart-ID, nom et code personnel pré-remplis) ou par e-mail info@aki.ee avec le modèle Word et signature numérique. Démarche préalable exigée : avoir d'abord tenté de faire valoir ses droits auprès du responsable (explication, effacement, rectification) ; sinon l'inspection n'agit en général pas. Doit porter sur ses propres données (ou celles d'un représenté avec autorisation) ; décrire la violation, indiquer un e-mail de réponse, joindre correspondance et captures. Langue exigée non précisée (formulaire et modèle en estonien). Courrier postal non mentionné.",
+  "source": [
+   "https://www.aki.ee/en",
+   "https://www.aki.ee/meist/vota-uhendust/kaebus-isikuandmete-kaitse-asjas"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "ES",
+  "autorite": "Agencia Española de Protección de Datos (AEPD)",
+  "autorite_en": "Spanish Data Protection Agency",
+  "site": "https://www.aepd.es",
+  "plainte_url": "https://sedeaepd.gob.es/sede-electronica/home",
+  "plainte_notes": "Réclamation via la sede électronique (identification par certificat numérique/Cl@ve, ou formulaire signé selon sources secondaires non officielles) ou par courrier à la Subdirección de Inspección, Paseo de la Castellana 141, planta 9, 28046 Madrid. Pour une plainte sur l'exercice de droits (effacement...), il faut d'abord avoir saisi le responsable et le délai légal (1 mois en général) doit être écoulé ; joindre copie de la demande et de la réponse éventuelle. Pages AEPD lues en espagnol (une page FAQ-1301 était en erreur 503, détails d'identification non confirmés sur le site officiel).",
+  "source": [
+   "https://www.aepd.es/preguntas-frecuentes/13-reclamaciones/FAQ-1303-puedo-interponer-una-reclamacion-respecto-al-ejercicio-de-los-derechos-de-proteccion-de-datos"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "FI",
+  "autorite": "Tietosuojavaltuutetun toimisto",
+  "autorite_en": "Office of the Data Protection Ombudsman",
+  "site": "https://tietosuoja.fi/en/home",
+  "plainte_url": "https://tietosuoja.fi/en/notification-to-the-data-protection-ombudsman",
+  "plainte_notes": "Formulaire en ligne 'Notification to the Data Protection Ombudsman' (via Turvalomake, sans compte). Pas d'obligation formelle de contacter d'abord l'organisme pour une notification de violation, mais en règle générale le médiateur ne traite pas les cas où la personne n'a pas contacté directement le responsable de traitement ; pour les demandes de droits, contacter le responsable d'abord. Peut être déposée de façon anonyme (champs de contact vides), mais sans réponse possible. Langue du formulaire non précisée par la page (site en fi/sv/en). Adresse alternative : P.O. Box 800, 00531 Helsinki ; tietosuoja(at)om.fi. Le lien direct du formulaire n'a pas été vérifié séparément de la page.",
+  "source": [
+   "https://tietosuoja.fi/en/notification-to-the-data-protection-ombudsman",
+   "https://tietosuoja.fi/en/processing-of-matters-within-our-competence",
+   "https://tietosuoja.fi/en/electronic-services-at-our-office",
+   "https://tietosuoja.fi/en/forms"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "FR",
+  "autorite": "Commission nationale de l'informatique et des libertés (CNIL)",
+  "autorite_en": "French Data Protection Authority (CNIL)",
+  "site": "https://www.cnil.fr",
+  "plainte_url": "https://www.cnil.fr/fr/plaintes",
+  "plainte_notes": "Plainte en ligne (page 'Plaintes en ligne', choix d'une rubrique) ; création d'un compte requise selon la page 'Adresser une plainte' (https://www.cnil.fr/fr/adresser-une-plainte), ou envoi postal au service des plaintes (adresse postale non relevée). Démarche préalable : exercer d'abord ses droits auprès de l'organisme/DPO, garder la preuve, attendre un mois ; autres manquements : les signaler d'abord à l'organisme/DPO. Plainte rédigée en français, avec identité du plaignant, identification de l'organisme (nom, coordonnées, SIREN), description et pièces ; mandat écrit si tiers.",
+  "source": [
+   "https://www.cnil.fr/fr/plaintes",
+   "https://www.cnil.fr/fr/adresser-une-plainte",
+   "https://www.cnil.fr/fr/plaintes/internet"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "GB",
+  "autorite": "Information Commissioner's Office (ICO)",
+  "autorite_en": "Information Commissioner's Office",
+  "site": "https://ico.org.uk",
+  "plainte_url": "https://ico.org.uk/make-a-complaint/data-protection-complaints/",
+  "plainte_notes": "Plainte en ligne ; il faut d'abord se plaindre à l'organisme et lui laisser répondre ; saisir l'ICO dans les 3 mois suivant sa réponse finale ; fournir l'e-mail de l'organisme, copie de la plainte faite à l'organisme et, si on agit pour un tiers, une lettre de consentement. Pas de compensation via l'ICO (tribunaux). ATTENTION : pages ico.org.uk inaccessibles en lecture directe (403) ; informations tirées des extraits de recherche des pages ICO, non lues en entier.",
+  "source": [
+   "https://ico.org.uk/for-the-public/how-to-make-a-data-protection-complaint/",
+   "https://ico.org.uk/make-a-complaint/"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "GR",
+  "autorite": "Αρχή Προστασίας Δεδομένων Προσωπικού Χαρακτήρα",
+  "autorite_en": "Hellenic Data Protection Authority",
+  "site": "https://www.dpa.gr/en",
+  "plainte_url": "https://www.dpa.gr/en/individuals/complaint-to-the-hellenic-dpa",
+  "plainte_notes": "Dépôt via le portail https://eservices.dpa.gr (formulaire électronique, identifiants Taxisnet exigés : résidents ou travailleurs en Grèce). Sans Taxisnet et pour une infraction survenue en Grèce : envoi en anglais par e-mail à complaints@dpa.gr (formulaires disponibles en anglais). Démarche préalable : s'adresser d'abord au responsable de traitement (art. 15-22 RGPD, DPO) ; saisir l'Autorité sans réponse dans le délai RGPD ou si insatisfait, sinon la plainte peut ne pas être examinée. Plaintes anonymes irrecevables.",
+  "source": [
+   "https://www.dpa.gr/en/individuals/complaint-to-the-hellenic-dpa",
+   "https://www.dpa.gr/en",
+   "https://www.dpa.gr/el"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "HR",
+  "autorite": "Agencija za zaštitu osobnih podataka (AZOP)",
+  "autorite_en": "Croatian Personal Data Protection Agency",
+  "site": "https://azop.hr/",
+  "plainte_url": "https://azop.hr/zahtjev-za-utvrdivanje-povrede-prava/",
+  "plainte_notes": "'Zahtjev za utvrđivanje povrede prava'. Dépôt : formulaire en ligne, e-mail azop@azop.hr, courrier (Ulica Metela Ožegovića 16, 10000 Zagreb), fax 01/46-090-99 ou oralement avec procès-verbal. Formulaire officiel facultatif (docx ou en ligne), en croate ; langue de dépôt non précisée. Identification : nom, OIB, adresse. Contacter d'abord le responsable de traitement par écrit ; saisir l'AZOP sans réponse sous un mois ou si l'exercice des droits est impossible (joindre la correspondance). Contenu : description chronologique des faits, violation alléguée et remède demandé, pièces, coordonnées du responsable. Signature manuscrite (papier) ou signature électronique qualifiée (électronique).",
+  "source": [
+   "https://azop.hr/",
+   "https://azop.hr/zahtjev-za-utvrdivanje-povrede-prava/"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "HU",
+  "autorite": "Nemzeti Adatvédelmi és Információszabadság Hatóság (NAIH)",
+  "autorite_en": "Hungarian National Authority for Data Protection and Freedom of Information (NAIH)",
+  "site": "https://www.naih.hu",
+  "plainte_url": "https://www.naih.hu/online-ugyinditas",
+  "plainte_notes": "Procédure à ouvrir via le formulaire d'ouverture en ligne (catégorie : procédure d'autorité de protection des données sur requête de la personne concernée) ; la procédure ne peut pas être ouverte par e-mail (ugyfelszolgalat@naih.hu = questions seulement). Autres canaux : courrier 1363 Budapest, Pf. 9 ; Hivatali kapu KR ID 429616918. Démarche préalable, langue du dépôt et mode d'identification non précisés par la page lue. Page d'accueil/anglaise naih.hu/en renvoie 404 lors du test.",
+  "source": [
+   "https://www.naih.hu/online-ugyinditas"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "IE",
+  "autorite": "An Coimisiún um Chosaint Sonraí",
+  "autorite_en": "Data Protection Commission (DPC)",
+  "site": "https://www.dataprotection.ie",
+  "plainte_url": "https://forms.dataprotection.ie/contact",
+  "plainte_notes": "Webform 'Contact the DPC' (sans compte) ou e-mail info@dataprotection.ie ou courrier ; pas de plainte par téléphone. Non obligatoire mais recommandé : contacter d'abord le responsable de traitement par écrit, puis joindre les copies de la correspondance (e-mails complets avec en-têtes/dates). Langue non précisée (site en anglais et irlandais). Pas d'exigence d'identification indiquée ; accusé de réception immédiat, réponse visée sous 20 jours ouvrés.",
+  "source": [
+   "https://www.dataprotection.ie/en/faqs/initial-contact-dpc/making-complaint-dpc",
+   "https://forms.dataprotection.ie/contact"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "IS",
+  "autorite": "Persónuvernd",
+  "autorite_en": "Icelandic Data Protection Authority",
+  "site": "https://island.is/s/personuvernd",
+  "plainte_url": "https://island.is/kvortun-til-personuverndar",
+  "plainte_notes": "Formulaire de plainte (fichier ODT à remplir) ; pas de plainte anonyme (l'organisme reçoit copie) ; nommer l'organisme visé, motiver, joindre les pièces ; contacter l'organisme d'abord si approprié. Mandat signé et certifié pour agir pour un tiers. Délai estimé 12 mois. Mode de dépôt (e-mail postur@personuvernd.is, adresse Laugavegur 166, 105 Reykjavik), identification électronique et langue acceptée non précisés sur la page. L'ancien domaine personuvernd.is redirige vers island.is.",
+  "source": [
+   "https://island.is/kvortun-til-personuverndar",
+   "https://www.personuvernd.is/en/ (redirige vers island.is)"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "IT",
+  "autorite": "Garante per la protezione dei dati personali",
+  "autorite_en": "Italian Data Protection Authority (Garante)",
+  "site": "https://www.garanteprivacy.it",
+  "plainte_url": "https://www.garanteprivacy.it/it/diritti/come-agire-per-tutelare-i-tuoi-dati-personali/reclamo",
+  "plainte_notes": "Reclamo (art. 77 RGPD, art. 140-bis s. Codice privacy) à envoyer par PEC à protocollo@pec.gpdp.it (PEC uniquement), par courrier recommandé AR à Piazza Venezia 11, 00187 Roma, ou remis en main propre ; pas de dépôt en ligne décrit sur la page. Modèle .docx/.pdf fourni. Signature authentifiée, numérique ou manuscrite (avec copie de pièce d'identité) ; indiquer l'Italie comme État de résidence/travail/lieu de l'infraction, identité du responsable, exposé détaillé des faits, demandes déjà faites au responsable et droits invoqués (art. 15-22). Pas d'obligation stricte de demande préalable relevée, mais les démarches antérieures doivent être décrites. Langue non précisée (italien présumé non confirmé).",
+  "source": [
+   "https://www.garanteprivacy.it/it/diritti/come-agire-per-tutelare-i-tuoi-dati-personali/reclamo",
+   "https://www.garanteprivacy.it"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "LI",
+  "autorite": "Datenschutzstelle des Fürstentums Liechtenstein",
+  "autorite_en": "Data Protection Authority of the Principality of Liechtenstein",
+  "site": "https://www.datenschutzstelle.li",
+  "plainte_url": "https://www.datenschutzstelle.li/services-und-downloads/formulare#Beschwerdeformular",
+  "plainte_notes": "Formulaire en ligne ou PDF ; gratuit pour personnes physiques concernées ; plaintes abusives (hors protection RGPD) peuvent être facturées (jusqu'à 500 CHF/h) ou refusées. Si on refuse la divulgation de son identité à l'organisme, l'autorité examine d'abord une enquête générale. Adresse : Kirchstrasse 8, Postfach 684, FL-9490 Vaduz ; info.dss@llv.li. Démarche préalable, signature, copie de pièce d'identité : non mentionnés sur la page. Langue du formulaire : allemand.",
+  "source": [
+   "https://www.datenschutzstelle.li",
+   "https://www.datenschutzstelle.li/services-und-downloads/formulare"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "LT",
+  "autorite": "Valstybinė duomenų apsaugos inspekcija",
+  "autorite_en": "State Data Protection Inspectorate",
+  "site": "https://vdai.lrv.lt/",
+  "plainte_url": null,
+  "plainte_notes": "Site officiel vdai.lrv.lt inaccessible (403 Cloudflare, WebFetch, curl et Chromium) : page de plainte NON lue. Indices non vérifiés sur la page officielle (résultats de recherche) : la page vdai.lrv.lt/en/services/ proposerait un modèle de plainte recommandé et un e-service ; les documents doivent être adressés à l'autorité en lituanien (traduction anglaise à titre informatif) ; e-mail ada@ada.lt et adresse L. Sapiegos g. 17, LT-10312 Vilnius (liste EDPB, lue). Contact préalable avec le responsable : non vérifié.",
+  "source": [
+   "https://www.edpb.europa.eu/about-edpb/about-edpb/members_en"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "LU",
+  "autorite": "Commission nationale pour la protection des données (CNPD)",
+  "autorite_en": "National Commission for Data Protection",
+  "site": "https://cnpd.public.lu/",
+  "plainte_url": "https://cnpd.public.lu/fr/particuliers/faire-valoir/formulaire-plainte.html",
+  "plainte_notes": "Formulaire de réclamation RGPD en ligne. La page recommande d'abord une première démarche auprès du responsable de traitement (accès, rectification, effacement...). Langue et mode d'identification non précisés sur la page ; versions /en/ et /de/ du même chemin annoncées (non vérifiées).",
+  "source": [
+   "https://cnpd.public.lu/fr/particuliers/faire-valoir/formulaire-plainte.html"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "LV",
+  "autorite": "Datu valsts inspekcija (DVI)",
+  "autorite_en": "Data State Inspectorate",
+  "site": "https://www.dvi.gov.lv/en",
+  "plainte_url": "https://www.dvi.gov.lv/lv/iesniegumu-paraugi",
+  "plainte_notes": "Page 'Sūdzību iesniegšanas kārtība' + modèles. DVI recommande de contacter d'abord le responsable de traitement et de joindre la demande, la preuve d'envoi et la réponse. Dépôt : signé électroniquement (signature électronique sécurisée) par e-mail pasts@dvi.gov.lv ou via E-adrese (Latvija.gov.lv) ; ou signé à la main par courrier / boîte à lettres, Elijas iela 17, Rīga LV-1050. Doit contenir nom, prénom, adresse et coordonnées. Réponse sous 3 mois. Langue de dépôt non précisée (site en lv/en).",
+  "source": [
+   "https://www.dvi.gov.lv/lv/iesniegumu-paraugi",
+   "https://www.dvi.gov.lv/en",
+   "https://www.dvi.gov.lv/en/rights-data-subject"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "MT",
+  "autorite": "Kummissarju għall-Informazzjoni u l-Protezzjoni tad-Data (IDPC)",
+  "autorite_en": "Office of the Information and Data Protection Commissioner",
+  "site": "https://idpc.org.mt/",
+  "plainte_url": "https://idpc.org.mt/file-a-complaint/",
+  "plainte_notes": "Formulaire en ligne : https://register.idpc.org.mt/report-breach/complaint/. Plainte et pièces en maltais ou anglais (autres langues : original + traduction). Plaintes anonymes refusées : coordonnées complètes de la personne et du responsable de traitement exigées. Contact préalable avec le responsable : non mentionné.",
+  "source": [
+   "https://idpc.org.mt/file-a-complaint/",
+   "https://idpc.org.mt/"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "NL",
+  "autorite": "Autoriteit Persoonsgegevens (AP)",
+  "autorite_en": "Dutch Data Protection Authority",
+  "site": "https://autoriteitpersoonsgegevens.nl/",
+  "plainte_url": "https://autoriteitpersoonsgegevens.nl/en/submitting-a-tip-off-or-a-complaint-to-the-ap",
+  "plainte_notes": "Formulaire en ligne (lien vers https://klachten.autoriteitpersoonsgegevens.nl/). Prendre d'abord contact avec l'organisme si possible, sinon l'AP renvoie souvent vers lui ; joindre les preuves et la copie des échanges avec l'organisme/DPO. L'identité du plaignant est transmise à l'organisme visé (sinon faire un simple signalement). Procuration si plainte pour autrui. Délai moyen 6 mois. Langue du formulaire non précisée.",
+  "source": [
+   "https://autoriteitpersoonsgegevens.nl/en/submitting-a-tip-off-or-a-complaint-to-the-ap",
+   "https://autoriteitpersoonsgegevens.nl/en"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "NO",
+  "autorite": "Datatilsynet",
+  "autorite_en": "Norwegian Data Protection Authority",
+  "site": "https://www.datatilsynet.no/en/",
+  "plainte_url": "https://www.datatilsynet.no/om-datatilsynet/kontakt-oss/klage-til-datatilsynet/",
+  "plainte_notes": "Formulaire en ligne en norvégien seulement, connexion BankID (ID-porten) ; sans BankID, plainte écrite par courrier : Postboks 458 Sentrum, 0105 Oslo. Contacter d'abord l'organisme (et son DPO) et joindre la correspondance ; indiquer nom de l'organisme, description, nom, téléphone, adresse postale. Version anglaise : https://www.datatilsynet.no/en/about-us/contact-us/how-to-complain-to-the-norwegian-dpa/ (lue). La page norvégienne n'a été vue que via résultats de recherche.",
+  "source": [
+   "https://www.datatilsynet.no/en/about-us/contact-us/how-to-complain-to-the-norwegian-dpa/"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "PL",
+  "autorite": "Urząd Ochrony Danych Osobowych (UODO)",
+  "autorite_en": "Personal Data Protection Office",
+  "site": "https://uodo.gov.pl/",
+  "plainte_url": "https://uodo.gov.pl/en/664/1408",
+  "plainte_notes": "Plainte électronique via la boîte électronique du Président de l'Office (formulaire ePUAP « Pismo ogólne do podmiotu publicznego ») ; version papier : https://uodo.gov.pl/en/664/1406. Rédigée obligatoirement en polonais. Nom et adresse obligatoires ; signature (qualifiée, profil de confiance ePUAP ou manuscrite pour le papier). Contact préalable avec le responsable : non exigé (correspondance conseillée comme preuve).",
+  "source": [
+   "https://uodo.gov.pl/en/664/1408",
+   "https://uodo.gov.pl/en/664/1406"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "PT",
+  "autorite": "Comissão Nacional de Proteção de Dados (CNPD)",
+  "autorite_en": "National Data Protection Commission",
+  "site": "https://www.cnpd.pt/",
+  "plainte_url": "https://www.cnpd.pt/cidadaos/participacoes/",
+  "plainte_notes": "Quatre formulaires en ligne selon le sujet : spam /cidadaos/participacoes/marketing-nao-solicitado-spam/, vidéosurveillance /videovigilancia/, biométrie /dados-biometricos/, autre /geral/ (tous sous https://www.cnpd.pt/cidadaos/participacoes/). Formulaire en portugais, captcha ; champs obligatoires marqués ; contact préalable et langue non précisés ; exposé succinct des faits demandé.",
+  "source": [
+   "https://www.cnpd.pt/cidadaos/participacoes/",
+   "https://www.cnpd.pt/cidadaos/participacoes/geral/"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "RO",
+  "autorite": "Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal (ANSPDCP)",
+  "autorite_en": "National Supervisory Authority for Personal Data Processing",
+  "site": "https://www.dataprotection.ro/",
+  "plainte_url": "https://www.dataprotection.ro/formulare/formularPlangere.do?action=prepare_login_new_action",
+  "plainte_notes": "Formulaire en ligne (URL reconstruite depuis un lien relatif de la page ?page=Plangeri_raspuns_nu) ou formulaire PDF (servlet/ViewDocument?id=1491). Il faut d'abord avoir exercé ses droits auprès de l'opérateur (réponse sous 1 mois, prolongeable de 2) ; plainte possible sans réponse ou si insatisfait, avec preuves. Identification complète (nom, adresse postale, e-mail) obligatoire sinon plainte traitée comme anonyme. Langue non précisée (site en roumain, anglais, français).",
+  "source": [
+   "https://www.dataprotection.ro/?page=Plangeri_pagina_principala&lang=ro",
+   "https://www.dataprotection.ro/?page=Plangeri_raspuns_nu&lang=ro"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "SE",
+  "autorite": "Integritetsskyddsmyndigheten (IMY)",
+  "autorite_en": "Swedish Authority for Privacy Protection",
+  "site": "https://www.imy.se",
+  "plainte_url": "https://www.imy.se/en/individuals/forms-and-e-services/file-a-gdpr-complaint/",
+  "plainte_notes": "E-service (Chrome ou Edge, cookies acceptés) ; exige que le traitement concerne ses propres données, que le responsable soit identifiable, ses coordonnées d'identité et de contact. Contacter l'organisme avant est recommandé, pas obligatoire. Alternative par lettre ou e-mail (identité protégée / cookies refusés). Langue de dépôt et e-ID non précisés sur la page.",
+  "source": [
+   "https://www.imy.se/en/",
+   "https://www.imy.se/en/individuals/forms-and-e-services/file-a-gdpr-complaint/"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "SI",
+  "autorite": "Informacijski pooblaščenec Republike Slovenije",
+  "autorite_en": "Information Commissioner of the Republic of Slovenia",
+  "site": "https://www.ip-rs.si",
+  "plainte_url": "https://ip-rs.si/en/data-protection/how-to-file-an-application",
+  "plainte_notes": "Signalement (prijava) par e-mail gp.ip@ip-rs.si ou par courrier (Dunajska cesta 22, 1000 Ljubljana) ; formulaire Word recommandé (lien sur la page). La page ne dit pas si une démarche préalable auprès de l'organisme est exigée, ni la langue acceptée, ni exigence de signature (non trouvé). Pas de compte requis.",
+  "source": [
+   "https://ip-rs.si/en/data-protection/how-to-file-an-application"
+  ],
+  "vu_le": "2026-11-09"
+ },
+ {
+  "pays": "SK",
+  "autorite": "Úrad na ochranu osobných údajov Slovenskej republiky",
+  "autorite_en": "Office for Personal Data Protection of the Slovak Republic",
+  "site": "https://dataprotection.gov.sk/",
+  "plainte_url": "https://dataprotection.gov.sk/sk/dotknute-osoby/navrh-zacatie-konania-ochrane-osobnych-udajov/",
+  "plainte_notes": "Démarche = « návrh na začatie konania ». Dépôt électronique sur https://schranka.slovensko.sk/FormConstructor/Default.aspx?IdService=434895 (signature électronique qualifiée et authentification) ; ou par courrier / en personne (Galvaniho 7/B, 821 04 Bratislava). Contenu : nom, adresse, signature, partie visée, objet, preuves, copie de la preuve d'exercice des droits ou motif de non-exercice. Langue non précisée ; gratuit.",
+  "source": [
+   "https://dataprotection.gov.sk/sk/dotknute-osoby/navrh-zacatie-konania-ochrane-osobnych-udajov/",
+   "https://dataprotection.gov.sk/sk/"
+  ],
+  "vu_le": "2026-11-09"
+ }
+]

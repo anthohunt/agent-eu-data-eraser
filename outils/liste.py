@@ -20,3 +20,17 @@ if sans:
     o += [f"- {c['nom']}" for c in sans]
 (R / "docs" / "courtiers.md").write_text("\n".join(o) + "\n", encoding="utf-8")
 print(f"{len(mail)} par mail, {len(sans)} sans adresse")
+
+# Autorités de protection des données (une par pays), pour la plainte
+A = json.loads((R / "effacement" / "autorites.json").read_text(encoding="utf-8"))
+o = ["# Data protection authorities / Autorités de protection des données", "",
+     "Generated from `effacement/autorites.json` by `outils/liste.py`. The agent names the user's own authority in its "
+     "emails and prepares the complaint for it. / Généré par `outils/liste.py` ; l'agent cite l'autorité du pays de "
+     "l'utilisateur et prépare la plainte pour elle.", "",
+     "| | Authority | Complaint page | Notes |", "|---|---|---|---|"]
+for a in A:
+    url = f"[link]({a['plainte_url']})" if a.get("plainte_url") else "—"
+    notes = (a.get("plainte_notes") or "").replace("|", "/").replace("\n", " ")[:160]
+    o.append(f"| {a['pays']} | {a.get('autorite_en') or a['autorite']} | {url} | {notes} |")
+(R / "docs" / "autorites.md").write_text("\n".join(o) + "\n", encoding="utf-8")
+print(f"{len(A)} autorités")

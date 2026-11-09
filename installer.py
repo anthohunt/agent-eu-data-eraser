@@ -43,6 +43,8 @@ def identite():
         if not d.get(cle):
             sys.exit(f"champ manquant : {cle}")
     d.setdefault("telephones", []); d.setdefault("adresses", [])
+    d.setdefault("pays", "FR")  # code ISO du pays de l'utilisateur : son autorité de protection des données
+    # langue des mails et du point : "fr" ou "en" (par défaut : français pour la France, anglais ailleurs)
     print(ecrire("identite.json", json.dumps(d, ensure_ascii=False, indent=1)))
 
 
