@@ -40,6 +40,9 @@ python3 installer.py etat
 
 Requirements: Linux or macOS (the schedule uses cron), Python 3.9+, a machine that stays on. Pillow watermarks the ID copy and Playwright follows confirmation links: without them, those two cases come back to you instead of being handled. Claude Code runs the research agent.
 
+## Works with other AI tools
+The core is plain Python and needs no AI. The setup skill is plain text that any coding agent can follow (see [`AGENTS.md`](AGENTS.md)). The research agent uses Claude Code by default; set `RECHERCHE_CMD` to any command that reads the instructions on stdin and edits `docs/courtiers-proposes.json` in its working folder (Codex, Gemini CLI…), with the same limits: web search, read access to that folder, no shell. Only the Claude Code setup has been tested.
+
 ## Data and security
 Everything personal stays in `donnees/`, on your machine, outside the repository. The risks considered (fake broker, fake email asking for your ID, booby-trapped link, prompt injection) and how they are handled are in [`SECURITY.md`](SECURITY.md).
 

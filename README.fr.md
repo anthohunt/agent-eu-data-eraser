@@ -40,6 +40,9 @@ python3 installer.py etat
 
 Prérequis : Linux ou macOS (le calendrier utilise cron), Python 3.9 ou plus, une machine allumée en permanence. Pillow sert au filigrane de la pièce d'identité, Playwright à suivre les liens de confirmation : sans eux, ces deux cas te remontent au lieu d'être traités seuls. Claude Code sert à l'agent de recherche.
 
+## Avec d'autres outils d'IA
+Le cœur est un programme Python ordinaire, sans IA. Le skill d'installation est un texte que n'importe quel agent de code peut suivre (voir [`AGENTS.md`](AGENTS.md)). L'agent de recherche utilise Claude Code par défaut ; `RECHERCHE_CMD` permet d'y brancher toute commande qui lit la consigne sur son entrée et modifie `docs/courtiers-proposes.json` dans son dossier (Codex, Gemini CLI…), avec les mêmes limites : recherche web, lecture de ce dossier, pas de shell. Seul Claude Code a été testé.
+
 ## Données et sécurité
 Tout ce qui est personnel reste dans `donnees/`, sur ta machine, hors du dépôt. Les risques pris en compte (faux courtier, faux mail qui réclame la pièce d'identité, lien piégé) et leurs parades sont dans [`SECURITY.fr.md`](SECURITY.fr.md).
 

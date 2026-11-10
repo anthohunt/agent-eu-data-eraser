@@ -7,7 +7,7 @@
 PATH="/usr/local/bin:$HOME/.local/bin:$PATH"; export PATH
 ICI=$(cd "$(dirname "$0")/.." && pwd)
 [ -f "$ICI/donnees/lancer-recherche.local" ] && . "$ICI/donnees/lancer-recherche.local"
-[ "$1" = "--essai" ] && { echo "bac à sable prêt ; claude : $(command -v claude || echo absent)"; exit 0; }
+[ "$1" = "--essai" ] && { echo "bac à sable prêt ; outil : ${RECHERCHE_CMD:-claude ($(command -v claude || echo absent))}"; exit 0; }
 T=$(mktemp -d) || exit 1
 trap 'rm -rf "$T"' EXIT
 mkdir -p "$T/effacement" "$T/docs" && cp "$ICI/README.md" "$ICI/CONTRIBUTING.md" "$T/" \
@@ -21,8 +21,15 @@ P="$ICI/donnees/courtiers-proposes.json"
 cp "$P" "$T/docs/courtiers-proposes.json"
 # l'agent connaît aussi les courtiers déjà validés par l'utilisateur, pour ne pas les reproposer
 [ -f "$ICI/donnees/courtiers-ajoutes.json" ] && cp "$ICI/donnees/courtiers-ajoutes.json" "$T/effacement/courtiers-ajoutes.json"
-( cd "$T" && claude -p --allowedTools "WebSearch" "WebFetch" "Read(/**)" "Edit(/docs/courtiers-proposes.json)" --disallowedTools "Bash" \
-    < consigne.md ) >> "$ICI/donnees/recherche.log" 2>&1
+# L'outil d'IA est réglable : RECHERCHE_CMD = une commande qui lit la consigne sur son entrée, travaille dans le dossier
+# courant et modifie docs/courtiers-proposes.json. Par défaut, Claude Code avec des outils limités (pas de shell).
+# Avec un autre outil, lui donner les mêmes limites : recherche web, lecture du dossier, écriture de ce seul fichier.
+if [ -n "$RECHERCHE_CMD" ]; then
+  ( cd "$T" && sh -c "$RECHERCHE_CMD" < consigne.md ) >> "$ICI/donnees/recherche.log" 2>&1
+else
+  ( cd "$T" && claude -p --allowedTools "WebSearch" "WebFetch" "Read(/**)" "Edit(/docs/courtiers-proposes.json)" --disallowedTools "Bash" \
+      < consigne.md ) >> "$ICI/donnees/recherche.log" 2>&1
+fi
 cp "$T/docs/courtiers-proposes.json" "$ICI/donnees/recherche-derniere-sortie.json" 2>/dev/null
 python3 - "$T/docs/courtiers-proposes.json" "$P" <<'PY' >> "$ICI/donnees/recherche.log" 2>&1 || exit 1
 import json, re, sys
