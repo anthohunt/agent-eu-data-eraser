@@ -1,0 +1,10 @@
+{
+  "nom": {"message": "EU Data Eraser: tracking cookies"},
+  "description": {"message": "Every week, deletes advertising and tracking cookies from sites you never visit yourself; keeps those of the sites you visit, so your logins stay."},
+  "jamais": {"message": "No cleanup yet."},
+  "dernier": {"message": "Last cleanup: $1, $2 cookie(s) deleted."},
+  "prochain": {"message": "Next: within 7 days."},
+  "maintenant": {"message": "Clean now"},
+  "encours": {"message": "Cleaning…"},
+  "erreur": {"message": "Tracker list unreachable: nothing was deleted, will retry at next start."}
+}

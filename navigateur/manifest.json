@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_nom__",
+  "description": "__MSG_description__",
+  "version": "1.0.0",
+  "default_locale": "en",
+  "permissions": ["cookies", "history", "alarms", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "background": {"service_worker": "nettoyage.js"},
+  "action": {"default_popup": "fenetre.html", "default_title": "__MSG_nom__"}
+}

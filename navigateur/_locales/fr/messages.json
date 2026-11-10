@@ -1,0 +1,10 @@
+{
+  "nom": {"message": "EU Data Eraser : cookies de pistage"},
+  "description": {"message": "Chaque semaine, efface les cookies publicitaires et de pistage des sites où tu ne vas jamais toi-même ; garde ceux des sites que tu visites, donc tes connexions."},
+  "jamais": {"message": "Pas encore de nettoyage."},
+  "dernier": {"message": "Dernier nettoyage : $1, $2 cookie(s) effacé(s)."},
+  "prochain": {"message": "Prochain : dans 7 jours au plus."},
+  "maintenant": {"message": "Nettoyer maintenant"},
+  "encours": {"message": "Nettoyage…"},
+  "erreur": {"message": "Liste des pisteurs injoignable : rien n'a été effacé, nouvel essai au prochain démarrage."}
+}
