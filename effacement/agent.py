@@ -600,6 +600,8 @@ def cmd_point(essai):
     a_joindre = [z for z in prets if not (z.with_suffix(".envoye")).exists()]
     if a_joindre:
         texte_point += "\n" + P["plaintes"].format(url=T.autorite(ident.get("pays", "FR")).get("plainte_url", "")) + "\n"
+    import tri   # spams rangés cette semaine (si le tri est activé)
+    texte_point += tri.pour_le_point(ident)
     envoyer_mail(ident["destinataire_point"], objet, texte_point, essai, ident, pieces=a_joindre)
     if not essai:
         for z in a_joindre:

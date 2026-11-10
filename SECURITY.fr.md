@@ -10,6 +10,7 @@ Tout ce qui est personnel reste sur la machine de l'utilisateur, dans `donnees/`
 - **Un faux mail « du courtier » qui réclame la pièce d'identité** : l'agent ne répond qu'à une demande signée (DKIM) par un domaine du courtier, seulement à l'adresse validée de la liste (jamais à l'adresse de la demande), une fois par courtier, avec une copie barrée d'un filigrane « Demande RGPD à <courtier>, <date>, usage unique ». Sans pièce fournie, la demande remonte à l'utilisateur.
 - **Un lien piégé** : l'agent ne suit un lien de confirmation que si le mail est authentifié pour le domaine du courtier.
 - **Une page web qui donne des ordres à l'agent de recherche** : sa consigne traite tout texte lu comme une donnée, jamais comme une instruction ; il ne fait que proposer et n'envoie rien.
+- **Le tri des spams (facultatif) envoie tes nouveaux mails à un modèle d'IA** : expéditeur, objet, en-tête d'authentification et les 1 200 premiers caractères de chaque mail partent vers le modèle que tu fais tourner (Claude Haiku par ton propre compte Claude Code, par défaut). Le modèle n'a aucun outil et tourne dans un dossier vide : un mail qui tente de lui donner des ordres peut au pire se faire garder ou ranger, jamais déclencher une action. Un mail rangé reste récupérable 30 jours, et le modèle a pour consigne de garder tout ce qui est douteux.
 - **L'accès à la boîte** : un mot de passe d'application réservé à l'agent ; le supprimer chez le fournisseur coupe l'agent sans toucher au reste.
 
 ## Signaler un problème

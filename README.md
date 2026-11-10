@@ -12,6 +12,7 @@ A permanent agent for people in the European Union, France first for now. It run
 - **It follows up one month after the request** (legal deadline, Art. 12(3)) and, one month after the follow-up, **prepares the complaint to the CNIL**: the text and the numbered evidence, which you file. Three months after the request, it renews it.
 - **It sends you a report every Monday**: progress towards the goal, what needs you, the status of each broker, and new brokers to approve.
 - **A research agent** (Claude Code) looks for new brokers every Monday, with the address each one publishes. It only proposes: replying "OUI" (yes) to the Monday report adds them to your list.
+- **Optionally, it sorts the spam that gets past your provider's filter**: every morning a small AI model (Claude Haiku) reads new mail and moves spam to a separate folder, listed in the Monday report and deleted 30 days later. It never touches brokers' mail, your own, or mail from anyone you have written to. Any IMAP mailbox with an app password (Yahoo, Gmail, iCloud, Fastmail…); not Outlook.com yet, which requires OAuth. `installer.py spams oui` to turn it on, `./lancer.sh tri trier --essai` to see its verdicts without moving anything; `TRI_CMD` plugs in another model.
 
 ![Lifecycle of a request: day 0 the request, every morning the inbox check, one month the follow-up, two months the complaint prepared, three months a renewed request](docs/images/cycle.en.svg)
 

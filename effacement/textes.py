@@ -163,14 +163,16 @@ POINT = {
            "nouveaux": "Nouveaux courtiers proposés par l'agent de recherche ({n}) :", "source": "source",
            "corrections": "Adresses changées :", "valider": "Réponds « OUI » à ce mail pour tout valider ; sans réponse, rien ne change.",
            "plaintes": "Réclamations prêtes, en pièces jointes : à déposer sur {url} (coller le texte 00, joindre les autres pièces).",
-           "jamais": "jamais"},
+           "jamais": "jamais",
+           "spams": "Spams retirés de ta boîte de réception cette semaine ({n}) : rangés dans le dossier « {dossier} », effacés pour de bon {jours} jours après. Pour en garder un, remets-le dans ta boîte de réception."},
     "en": {"objet": "[Eraser] Report of {date}: {ok}/{total} erasures confirmed",
            "score": "Erasures confirmed (or no data held): {ok} of {total} (goal: 80% within three months).",
            "a_toi": "Needs you:", "etat": "Status of each broker:", "dernier": "last sent",
            "nouveaux": "New brokers proposed by the research agent ({n}):", "source": "source",
            "corrections": "Changed addresses:", "valider": "Reply \"YES\" (or « OUI ») to this email to approve them all; without a reply, nothing changes.",
            "plaintes": "Complaints ready, attached: file them at {url} (paste text 00, attach the other files; some authorities require their national language).",
-           "jamais": "never"}}
+           "jamais": "never",
+           "spams": "Spam removed from your inbox this week ({n}): moved to the folder \"{dossier}\", deleted for good {jours} days later. To keep one, move it back to your inbox."}}
 
 # Broker states as shown in the English report (the journal keeps the French names).
 ETATS_EN = {"à envoyer": "to send", "envoyé": "sent", "relancé": "followed up", "effacement confirmé": "erasure confirmed",

@@ -7,6 +7,8 @@
                                      teste la connexion (lecture IMAP et envoi SMTP) sans rien envoyer
   installer.py piece FICHIER         copie la pièce d'identité (image) dans donnees/, pour les demandes authentifiées
   installer.py calendrier            pose le calendrier (cron, Linux ou macOS) : envois, relevés, relances, point, recherche
+  installer.py spams oui|non [DOSSIER]
+                                     active le tri quotidien des spams qui passent le filtre (modèle d'IA, voir tri.py)
   installer.py essai                 fait un tour complet à blanc : 2 demandes et le point, écrits en aperçu
   installer.py etat                  ce qui est installé et ce qui manque
 
@@ -91,6 +93,7 @@ def calendrier():
             f"0 10 * * 2,4 {l} envoyer --n 2",
             f"0 6 * * 1 {r}",
             f"45 7 * * 1 {l} relever",
+            f"30 7 * * * {l} tri trier; {l} tri purger",   # sans effet tant que le tri n'est pas activé
             f"0 8 * * 1 {l} point",
             MARQUE + " fin"]
     actuel = subprocess.run(["crontab", "-l"], capture_output=True, text=True).stdout.splitlines()
@@ -106,6 +109,12 @@ def calendrier():
     print("\n".join(bloc[1:-1]))
 
 
+def spams(choix, dossier="Agent-spams"):
+    actif = choix in ("oui", "yes", "on")
+    print(ecrire("spams.json", json.dumps({"actif": actif, "dossier": dossier, "garde_jours": 30})))
+    print("tri des spams " + ("activé : chaque matin à 7 h 30, essai sans rien déplacer : ./lancer.sh tri trier --essai" if actif else "désactivé"))
+
+
 def essai():
     py = ICI / ".venv" / "bin" / "python"
     py = str(py) if py.exists() else sys.executable
@@ -118,6 +127,7 @@ def etat():
     for nom, ok in (("éléments à effacer", (DONNEES / "identite.json").exists()),
                     ("boîte d'envoi", (DONNEES / "acces.json").exists()),
                     ("pièce d'identité (facultative)", any(DONNEES.glob("piece-identite.*"))),
+                    ("tri des spams (facultatif)", (DONNEES / "spams.json").exists() and json.loads((DONNEES / "spams.json").read_text()).get("actif")),
                     ("calendrier", MARQUE in subprocess.run(["crontab", "-l"], capture_output=True, text=True).stdout)):
         print(f"{'OK ' if ok else '-- '} {nom}")
 
@@ -126,4 +136,4 @@ if __name__ == "__main__":
     a = sys.argv[1:]
     if not a: sys.exit(__doc__)
     {"identite": lambda: identite(), "boite": lambda: boite(a[1], a[2]), "piece": lambda: piece(a[1]),
-     "calendrier": calendrier, "essai": essai, "etat": etat}[a[0]]()
+     "calendrier": calendrier, "spams": lambda: spams(*a[1:3]), "essai": essai, "etat": etat}[a[0]]()
