@@ -16,7 +16,9 @@ Option --essai : rien n'est envoyé ; les mails sont écrits dans donnees/apercu
 
 Données personnelles (hors dépôt), dans le dossier donné par EFFACEMENT_DONNEES
 (par défaut ../donnees) :
-  identite.json     nom, mails, téléphones, adresses, expéditeur, destinataire du point
+  identite.json     nom, mails, téléphones, adresses, expéditeur, destinataire du point ;
+                    facultatif : point_commande (le point du lundi part dans un rapport tenu ailleurs) et
+                    point_texte_validation (phrase de validation, {code} = E + jour et mois)
   acces.json        accès à la boîte d'envoi : {"smtp": ..., "imap": ..., "utilisateur": ..., "mot_de_passe": ...}
   journal.json      état de chaque courtier (écrit par le programme)
   journal.log       trace de chaque action
@@ -472,26 +474,41 @@ def chercher_validation(M, ident, essai):
             continue
         if not re.match(r"\s*(oui|yes)\b", texte(msg), re.I):
             continue
-        a_valider, corrections = propositions()
-        connus = {c["id"] for c in courtiers()}
-        ajout = [{k: x[k] for k in ("id", "nom", "canal", "adresse", "domaines", "pays", "source", "vu_le") if k in x}
-                 for x in a_valider if x["id"] in v["ids"] and x["id"] not in connus]
-        corr = {x["id"]: x for x in corrections if x["id"] in v.get("corrections", [])}
-        ajout += [{"id": i, "adresse": x["nouvelle"], "source": x["source"], "vu_le": x["vu_le"]} for i, x in corr.items()]
-        if essai:
-            log(f"ESSAI : {len(ajout) - len(corr)} courtier(s) et {len(corr)} correction(s) seraient validés")
-            return
-        anciens = charger("courtiers-ajoutes.json", [])
-        ids = {x["id"] for x in ajout}
-        (DONNEES / "courtiers-ajoutes.json").write_text(json.dumps([x for x in anciens if x["id"] not in ids] + ajout,
-                                                                  ensure_ascii=False, indent=1), encoding="utf-8")
-        d2 = json.loads(PROPOSES.read_text(encoding="utf-8"))
-        d2["a_valider"] = [x for x in d2.get("a_valider", []) if x["id"] not in v["ids"]]
-        d2["corrections"] = [x for x in d2.get("corrections", []) if x["id"] not in corr]
-        PROPOSES.write_text(json.dumps(d2, ensure_ascii=False, indent=1), encoding="utf-8")
-        (DONNEES / "validation.json").write_text("{}")
-        log(f"validation reçue : {len(ajout) - len(corr)} courtier(s) ajouté(s), {len(corr)} adresse(s) corrigée(s)")
+        appliquer_validation(v, essai)
         return
+
+
+def appliquer_validation(v, essai):
+    """Fait entrer dans la liste les courtiers et corrections proposés au dernier point (validation.json)."""
+    a_valider, corrections = propositions()
+    connus = {c["id"] for c in courtiers()}
+    ajout = [{k: x[k] for k in ("id", "nom", "canal", "adresse", "domaines", "pays", "source", "vu_le") if k in x}
+             for x in a_valider if x["id"] in v["ids"] and x["id"] not in connus]
+    corr = {x["id"]: x for x in corrections if x["id"] in v.get("corrections", [])}
+    ajout += [{"id": i, "adresse": x["nouvelle"], "source": x["source"], "vu_le": x["vu_le"]} for i, x in corr.items()]
+    if essai:
+        log(f"ESSAI : {len(ajout) - len(corr)} courtier(s) et {len(corr)} correction(s) seraient validés")
+        return
+    anciens = charger("courtiers-ajoutes.json", [])
+    ids = {x["id"] for x in ajout}
+    (DONNEES / "courtiers-ajoutes.json").write_text(json.dumps([x for x in anciens if x["id"] not in ids] + ajout,
+                                                              ensure_ascii=False, indent=1), encoding="utf-8")
+    d2 = json.loads(PROPOSES.read_text(encoding="utf-8"))
+    d2["a_valider"] = [x for x in d2.get("a_valider", []) if x["id"] not in v["ids"]]
+    d2["corrections"] = [x for x in d2.get("corrections", []) if x["id"] not in corr]
+    PROPOSES.write_text(json.dumps(d2, ensure_ascii=False, indent=1), encoding="utf-8")
+    (DONNEES / "validation.json").write_text("{}")
+    log(f"validation reçue : {len(ajout) - len(corr)} courtier(s) ajouté(s), {len(corr)} adresse(s) corrigée(s)")
+
+
+def cmd_valider(essai):
+    """Validation donnée ailleurs que par mail (par exemple dans une session avec l'agent de code) : même effet
+    qu'une réponse « OUI » au dernier point."""
+    v = charger("validation.json", {})
+    if not v.get("ids") and not v.get("corrections"):
+        print("rien à valider"); return
+    appliquer_validation(v, essai)
+    print("validé : voir donnees/journal")
 
 
 # ---------- relances ----------
@@ -592,7 +609,7 @@ def cmd_point(essai):
         texte_point += "".join(f"• {x['nom']} — {x['adresse']} ({P['source']} : {x['source']})\n" for x in a_valider)
         if corrections:
             texte_point += P["corrections"] + "\n" + "".join(f"• {x['id']} : {x['ancienne']} → {x['nouvelle']} ({P['source']} : {x['source']})\n" for x in corrections)
-        texte_point += P["valider"] + "\n"
+        texte_point += (ident.get("point_texte_validation") or P["valider"]).format(code=f"E{date.today():%d%m}") + "\n"
         if not essai:
             (DONNEES / "validation.json").write_text(json.dumps({"date": date.today().isoformat(), "objet": objet,
                 "ids": [x["id"] for x in a_valider], "corrections": [x["id"] for x in corrections]}, ensure_ascii=False))
@@ -602,7 +619,19 @@ def cmd_point(essai):
         texte_point += "\n" + P["plaintes"].format(url=T.autorite(ident.get("pays", "FR")).get("plainte_url", "")) + "\n"
     import tri   # spams rangés cette semaine (si le tri est activé)
     texte_point += tri.pour_le_point(ident)
-    envoyer_mail(ident["destinataire_point"], objet, texte_point, essai, ident, pieces=a_joindre)
+    if ident.get("point_commande") and not essai:
+        # Le point va dans un rapport tenu ailleurs (commande qui reçoit --sujet, --text-file et --piece), pas par mail.
+        import shlex, subprocess, tempfile
+        with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False, encoding="utf-8") as h:
+            h.write(texte_point)
+        cmd = shlex.split(ident["point_commande"]) + ["--sujet", objet, "--text-file", h.name]
+        for z in a_joindre:
+            cmd += ["--piece", str(z)]
+        subprocess.run(cmd, check=True)
+        os.unlink(h.name)
+        log(f"point déposé : « {objet} »")
+    else:
+        envoyer_mail(ident["destinataire_point"], objet, texte_point, essai, ident, pieces=a_joindre)
     if not essai:
         for z in a_joindre:
             z.with_suffix(".envoye").touch()
@@ -630,7 +659,7 @@ def cmd_etat():
 
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("commande", choices=["envoyer", "relever", "relancer", "point", "etat", "noter"])
+    p.add_argument("commande", choices=["envoyer", "relever", "relancer", "point", "etat", "noter", "valider"])
     p.add_argument("courtier", nargs="?", help="pour noter : identifiant du courtier (voir courtiers.json)")
     p.add_argument("--date", default=date.today().isoformat(), help="pour noter : date de la demande (AAAA-MM-JJ)")
     p.add_argument("--n", type=int, default=2)
@@ -639,7 +668,7 @@ def main():
     sys.path.insert(0, str(ICI))
     {"envoyer": lambda: cmd_envoyer(a.n, a.essai), "relever": lambda: cmd_relever(a.essai),
      "relancer": lambda: cmd_relancer(a.essai), "point": lambda: cmd_point(a.essai), "etat": cmd_etat,
-     "noter": lambda: cmd_noter(a.courtier, a.date, a.essai)}[a.commande]()
+     "noter": lambda: cmd_noter(a.courtier, a.date, a.essai), "valider": lambda: cmd_valider(a.essai)}[a.commande]()
 
 
 if __name__ == "__main__":
