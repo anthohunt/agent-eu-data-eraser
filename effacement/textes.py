@@ -114,6 +114,47 @@ def rappel_canal(ident, depuis):
             f"{ident['nom']}\n")
 
 
+def refus_info(ident, depuis, piece=False):
+    """Reply to a broker that asks for more information about the person (LinkedIn link, phone, employer...) before
+    handling the request: refuse, the request already identifies the person (Articles 5(1)(c), 11(2), 12(2), 12(6)
+    GDPR), formal notice with the one-month deadline and the complaint. User's decision of 12/11/2026."""
+    l, aut = langue(ident), nom_autorite(ident)
+    cnil_en = (" The French data protection authority (CNIL) also recalls that exercising one's rights does not, as a "
+               "rule, require a copy of an identity document.") if piece else ""
+    cnil_fr = (" La CNIL rappelle d'ailleurs que l'exercice des droits ne nécessite pas, en principe, de fournir une "
+               "copie de pièce d'identité.") if piece else ""
+    if l == "en":
+        return ("Dear Sir or Madam,\n\n"
+                f"You ask me for additional information before handling my erasure request of {depuis}. I refuse to provide "
+                "any further information.\n\n"
+                "My request gives my name and the email address you are writing to: that is enough to find, in your own "
+                "files, the data you hold about me. Under Article 12(6) GDPR, additional information may only be requested "
+                "where there are reasonable doubts about the identity of the person making the request, which you do not "
+                f"claim.{cnil_en} Asking for more data than is needed breaches the principle of data minimisation (Article 5(1)(c)) "
+                "and your duty to facilitate the exercise of my rights (Article 12(2)). If you consider that you cannot "
+                "identify me, Article 11(2) requires you to tell me so, not to collect more data about me.\n\n"
+                "I therefore give you formal notice to erase all personal data concerning me (Article 17 GDPR) and to "
+                "confirm it in writing within one month of receipt of my request (Article 12(3)). Without a reply within "
+                f"that period, I will lodge a complaint with the {aut}, attaching this exchange.\n\n"
+                "Yours faithfully,\n\n"
+                f"{ident['nom']}\n")
+    return ("Madame, Monsieur,\n\n"
+            f"Vous me demandez des informations supplémentaires avant de traiter ma demande d'effacement du {depuis}. "
+            "Je refuse de vous fournir quelque autre information que ce soit.\n\n"
+            "Ma demande indique mon nom et l'adresse électronique à laquelle vous m'écrivez : cela suffit pour retrouver, "
+            "dans vos propres fichiers, les données que vous détenez sur moi. Selon l'article 12.6 du RGPD, des "
+            "informations supplémentaires ne peuvent être demandées qu'en cas de doutes raisonnables sur l'identité de la "
+            f"personne qui fait la demande, ce que vous n'invoquez pas.{cnil_fr} Demander plus de données que nécessaire méconnaît le "
+            "principe de minimisation (article 5.1.c) et votre obligation de faciliter l'exercice de mes droits (article "
+            "12.2). Si vous estimez ne pas pouvoir m'identifier, l'article 11.2 vous impose de me le dire, et non de "
+            "collecter davantage de données sur moi.\n\n"
+            "Je vous mets donc en demeure d'effacer toutes les données personnelles me concernant (article 17 du RGPD) et "
+            "de me le confirmer par écrit dans le délai d'un mois à compter de la réception de ma demande (article 12.3). "
+            f"Sans réponse dans ce délai, je saisirai la {aut} d'une réclamation, en y joignant cet échange.\n\n"
+            "Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.\n\n"
+            f"{ident['nom']}\n")
+
+
 def piece(ident):
     if langue(ident) == "en":
         return ("Dear Sir or Madam,\n\n"

@@ -48,6 +48,7 @@ PIECE = "pièce demandée"
 PIECE_ENVOYEE = "pièce d'identité envoyée"
 REDIRECTION = "renvoie vers son formulaire"
 ACCUSE = "accusé de réception"
+INFO = "informations demandées"
 REFUS = "refus"
 A_LIRE = "réponse à lire"
 CNIL = "réclamation CNIL prête"
@@ -60,6 +61,9 @@ REGLES = [
     # par un lien à cliquer n'en est pas une : c'est une vérification.
     (PIECE, r"pi[eè]ce d.identit|justificatif d.identit|carte d.identit|passeport|passport|proof of identity|identity document|photo id|government.issued id|copy of (your |an )?(id|identification|passport)|copie de (votre |votre )?(pi[eè]ce|carte|passeport)"),
     # Le courtier renvoie vers son formulaire : le mail reste valable (CEPD, lignes directrices 01/2022, points 52-53).
+    # Le courtier demande d'autres informations sur la personne (lien LinkedIn, téléphone, employeur...) : refus et
+    # mise en demeure (décision de l'utilisateur, 12/11/2026). Pas les formules de politesse (« additional information »).
+    (INFO, r"linkedin (link|profile|url|account|page)|(lien|profil|url) linkedin|(provide|send|share|give) (us )?(with )?your (linkedin|phone|telephone|mobile|date of birth|postal address|home address|company|employer|job title)|(fournir|communiquer|transmettre|indiquer|pr[ée]ciser) (votre|vos) (lien|profil|num[ée]ro|t[ée]l[ée]phone|date de naissance|adresse postale|entreprise|employeur|poste|fonction)"),
     (REDIRECTION, r"privacy cent(er|re)|privacy portal|dsar portal|web ?form|our (online )?form|notre formulaire|formulaire (en ligne|d[ée]di[ée])|submit (your|a) request (via|through|on|using)|please (use|visit|fill)|veuillez (utiliser|remplir|passer par)|(submitted|sent|made) (through|via|using) (the|our) (following )?form|(soumise|envoy[ée]e|faite) (via|par|depuis) (le|notre) formulaire"),
     (VERIFICATION, r"verify your|(v[ée]rifier|confirmer|prouver) votre identit|(verify|confirm|prove) your identity|identity verification|v[ée]rifi(er|ez|cation)|confirm your (email|request)|confirmez votre|cliquez sur le lien|click (the|this) link"),
     (AUCUNE_DONNEE, r"aucune donn[ée]e|aucune information|n.avons pas d.informations?|pas d.informations? (associ|vous concern)|no (personal )?(data|information|record)s? (was |were )?(found|held)|not (found|hold|have any)|ne (d[ée]tenons|disposons) (pas|d.aucune)"),
@@ -287,12 +291,23 @@ def cmd_relever(essai):
                         ok, note = rappeler_canal(c, e, msg, charger("identite.json"), essai)
                         log(f"{c['nom']} : {note}")
                         e["etat"] = ENVOYE
+                    if etat == INFO:
+                        ok, note = refuser_info(c, e, msg, charger("identite.json"), essai)
+                        log(f"{c['nom']} : {note}")
+                        if ok:
+                            e["etat"] = ENVOYE
                     if etat == VERIFICATION:
                         ok, note = suivre_lien(c, msg, essai)
                         log(f"{c['nom']} : lien de vérification {'suivi' if ok else 'non suivi'} ({note})")
                         if ok:
                             e["etat"] = ENVOYE
-                    if etat == PIECE:
+                    if etat == PIECE and charger("identite.json").get("refuser_piece"):
+                        # choix de l'utilisateur (identite.json « refuser_piece ») : aucune pièce, refus et mise en demeure
+                        ok, note = refuser_info(c, e, msg, charger("identite.json"), essai, piece=True)
+                        log(f"{c['nom']} : pièce d'identité refusée ({note})")
+                        if ok:
+                            e["etat"] = ENVOYE
+                    elif etat == PIECE:
                         ok, note = envoyer_piece(c, e, msg, charger("identite.json"), essai)
                         log(f"{c['nom']} : pièce d'identité {'envoyée' if ok else 'non envoyée'} ({note})")
                         if ok:
@@ -326,6 +341,21 @@ def rappeler_canal(c, e, msg, ident, essai):
                        essai, ident, copie=f"{date.today().isoformat()}-{c['id']}-rappel-canal.eml")
     e["envois"].append({"date": date.today().isoformat(), "type": "rappel-canal", "canal": "mail", "message_id": mid, "essai": essai})
     return True, f"rappel envoyé à {c['adresse']} : le mail suffit"
+
+
+def refuser_info(c, e, msg, ident, essai, piece=False):
+    """Réponse à un courtier qui demande d'autres informations : refus, mise en demeure, une seule fois par courtier."""
+    if c.get("canal") != "mail" or not c.get("adresse"):
+        return False, "pas d'adresse validée"
+    if any(x.get("type") == "refus-info" for x in e["envois"]):
+        return False, "refus déjà envoyé une fois : la relance à un mois suivra"
+    premiere = next((x["date"] for x in e["envois"] if x.get("type") == "demande"), date.today().isoformat())
+    objet = decoder(msg.get("Subject")) or OBJ(ident)
+    objet = objet if objet.lower().startswith("re:") else "Re: " + objet
+    mid = envoyer_mail(c["adresse"], objet, T.refus_info(ident, date.fromisoformat(premiere).strftime("%d/%m/%Y"), piece),
+                       essai, ident, copie=f"{date.today().isoformat()}-{c['id']}-refus-info.eml")
+    e["envois"].append({"date": date.today().isoformat(), "type": "refus-info", "canal": "mail", "message_id": mid, "essai": essai})
+    return True, f"refus d'informations et mise en demeure envoyés à {c['adresse']}"
 
 
 # ---------- pièce d'identité (décision de l'utilisateur : envoi automatique, avec garde-fous) ----------
