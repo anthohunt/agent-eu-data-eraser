@@ -135,7 +135,7 @@ def envoyer_mail(dest, objet, corps, essai, ident, copie=None, pieces=()):
     msg = EmailMessage()
     msg["From"] = f"{ident['nom']} <{ident['expediteur']}>"
     msg["To"] = dest
-    msg["Subject"] = objet
+    msg["Subject"] = " ".join(objet.split())   # un objet replié sur deux lignes (Re: d'un courtier) ferait échouer l'envoi
     msg["Date"] = formatdate(localtime=True)
     msg["Message-ID"] = make_msgid(domain=ident["expediteur"].split("@")[1])
     msg.set_content(corps)
