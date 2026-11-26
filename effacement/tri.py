@@ -28,7 +28,7 @@ import agent as A  # noqa: E402
 REGLAGES = A.DONNEES / "spams.json"     # {"actif": true, "dossier": "Agent-spams", "garde_jours": 30}
 ETAT = A.DONNEES / "tri.json"           # mails déjà jugés, spams rangés
 PAR_LOT = 15
-COMMANDE = ["claude", "-p", "--model", "claude-haiku-5-5", "--tools", "", "--strict-mcp-config",
+COMMANDE = [os.environ.get("CLAUDE_CMD") or "claude", "-p", "--model", "claude-haiku-5-5", "--tools", "", "--strict-mcp-config",
             "--setting-sources", "", "--no-session-persistence"]
 
 CONSIGNE = """You sort one person's inbox. For each email below, decide if it is SPAM: a scam, phishing, a fake invoice
@@ -96,7 +96,7 @@ def juger(lots, langue):
             consigne = CONSIGNE.replace("LANG", "French" if langue == "fr" else "English") + json.dumps(lot, ensure_ascii=False)
             try:
                 r = subprocess.run(cmd if cmd else COMMANDE, shell=bool(cmd), input=consigne, cwd=vide,
-                                   capture_output=True, text=True, timeout=300)
+                                   capture_output=True, text=True, timeout=300, env=dict(os.environ, AGENT_NOM="Effacement › tri"))
                 brut = r.stdout
                 m = re.search(r"\[.*\]", brut, re.S)
                 for v in json.loads(m.group(0)) if m else []:

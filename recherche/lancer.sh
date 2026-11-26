@@ -27,7 +27,7 @@ cp "$P" "$T/docs/courtiers-proposes.json"
 if [ -n "$RECHERCHE_CMD" ]; then
   ( cd "$T" && sh -c "$RECHERCHE_CMD" < consigne.md ) >> "$ICI/donnees/recherche.log" 2>&1
 else
-  ( cd "$T" && claude -p --allowedTools "WebSearch" "WebFetch" "Read(/**)" "Edit(/docs/courtiers-proposes.json)" --disallowedTools "Bash" \
+  ( cd "$T" && AGENT_NOM="Effacement › recherche" "${CLAUDE_CMD:-claude}" -p --allowedTools "WebSearch" "WebFetch" "Read(/**)" "Edit(/docs/courtiers-proposes.json)" --disallowedTools "Bash" \
       < consigne.md ) >> "$ICI/donnees/recherche.log" 2>&1
 fi
 cp "$T/docs/courtiers-proposes.json" "$ICI/donnees/recherche-derniere-sortie.json" 2>/dev/null
