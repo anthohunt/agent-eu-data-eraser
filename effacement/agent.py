@@ -489,6 +489,8 @@ def chercher_validation(M, ident, essai):
     v = charger("validation.json", {})
     if not v.get("ids") and not v.get("corrections"):
         return
+    if ident.get("point_commande"):
+        return   # le point part dans un rapport tenu ailleurs : la validation se donne en session (decider), pas par mail
     moi = ident["destinataire_point"].lower()
     dom = moi.rsplit("@", 1)[-1]
     M.select("INBOX", readonly=True)
